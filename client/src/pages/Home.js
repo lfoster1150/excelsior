@@ -13,7 +13,6 @@ const Home = (props) => {
 
   const postNewUser = async (e) => {
     e.preventDefault()
-    console.log('submit')
     try {
       const res = await axios
         .post(`${BASE_URL}/user`, {
@@ -32,13 +31,16 @@ const Home = (props) => {
     }
   }
 
+  const sendToUserPage = () => {
+    props.history.push(`/user/${currentUsername}`)
+  }
+
   const getByUsername = async (e) => {
     e.preventDefault()
     try {
-      const res = await axios.get(`${BASE_URL}/users/${usernameQuery}`)
-      console.log(res)
-      props.setCurrentUsername(usernameQuery)
-      // sendToUserPage()
+      setCurrentUsername(usernameQuery)
+      const res = await axios.get(`${BASE_URL}/user/${usernameQuery}`)
+      sendToUserPage()
     } catch (err) {
       console.log(err)
     }

@@ -15,10 +15,9 @@ const postUser = async (req, res) => {
 const getByUsername = async (req, res) => {
   try {
     const { username } = req.params
-    console.log(username)
-    const byUsername = await User.find({ username: username })
-    if (byUsername) {
-      return res.status(200).json({ byUsername })
+    const user = await User.find({ username: username })
+    if (user) {
+      return res.status(200).json({ user })
     }
     return res
       .status(404)
