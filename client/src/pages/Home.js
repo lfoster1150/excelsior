@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Nav from '../components/Nav'
 import TextInput from '../components/TextInput'
+import TextInputWithButton from '../components/TextInputWithButton'
 import { BASE_URL } from '../globals'
 
 const Home = (props) => {
@@ -31,6 +32,21 @@ const Home = (props) => {
     }
   }
 
+  const getByUsername = async (e) => {
+    e.preventDefault()
+    try {
+      const res = await axios.get(`${BASE_URL}/users/${usernameQuery}`)
+      console.log(res)
+      props.setCurrentUsername(usernameQuery)
+      // sendToUserPage()
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const handleChange = (event) => {
+    setUsernameQuery(event.target.value)
+  }
   const handleChangeNewUser = (event) => {
     setNewUsernameQuery(event.target.value)
   }
@@ -41,22 +57,38 @@ const Home = (props) => {
     <div className="page">
       <Nav />
       <div>
+        <div className="existing-user">
+          <h2>Enter your username to see your collections:</h2>
+          <TextInputWithButton
+            onSubmit={getByUsername}
+            name="Submit"
+            placeholder="enter new username"
+            value={usernameQuery}
+            onChange={handleChange}
+          />
+        </div>
         <div className="add-new-user">
           <h2>Enter a username to create an account:</h2>
-          <div className="new-user-text">
-            <input
-              type="text"
-              placeholder="enter your name"
-              value={newNameQuery}
-              onChange={handleChangeNewName}
-            />
-            <TextInput
-              onSubmit={postNewUser}
-              name="Submit"
-              placeholder="enter new username"
-              value={newUsernameQuery}
-              onChange={handleChangeNewUser}
-            />
+          <div className="new-user">
+            <div className="input-text">
+              <p>Your Name: </p>
+              <TextInput
+                placeholder="enter your name"
+                value={newNameQuery}
+                onChange={handleChangeNewName}
+              />
+            </div>
+            <div className="input-text">
+              <p>New Username: </p>
+
+              <TextInputWithButton
+                onSubmit={postNewUser}
+                name="Submit"
+                placeholder="enter new username"
+                value={newUsernameQuery}
+                onChange={handleChangeNewUser}
+              />
+            </div>
           </div>
         </div>
       </div>
