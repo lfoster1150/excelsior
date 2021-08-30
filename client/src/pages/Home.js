@@ -1,9 +1,17 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import Nav from '../components/Nav'
+import TextInput from '../components/TextInput'
 
-const Home = () => {
+const Home = (props) => {
+  const [usernameQuery, setUsernameQuery] = useState('')
+  const [newUsernameQuery, setNewUsernameQuery] = useState('')
+  const { currentUsername, setCurrentUsername } = props
   return (
-    <div>
-      <h1>this is home</h1>
+    <div className="page">
+      <Nav />
+      <div>
+        <h2>Enter Username</h2>
+      </div>
     </div>
   )
 }
