@@ -10,7 +10,7 @@ const TextInput = (props) => {
         placeholder={props.placeholder}
         onChange={props.onChange}
       />
-      <button type="submit">{props.text}</button>
+      <button type="submit">{props.name}</button>
     </form>
   )
 }
