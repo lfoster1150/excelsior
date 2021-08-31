@@ -58,9 +58,35 @@ const Stack = (props) => {
   }
 
   // Handles New Comic Form Submission
-  const handleSubmit = (e) => {
+
+  const postNewComic = async (e) => {
     e.preventDefault()
+
+    try {
+      const res = await axios
+        .post(
+          `${BASE_URL}/user/${currentUsername}/stack/${currentStackId}/comic`,
+          {
+            title: newComicQuery.title,
+            description: newComicQuery.description,
+            release_date: newComicQuery.release_date,
+            cover_image: newComicQuery.cover_image,
+            creators: [...creatorState],
+            stack: currentStackId
+          }
+        )
+        .then(function (response) {
+          console.log(response)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    } catch (err) {
+      console.log(err)
+    }
+    getStackComics()
   }
+
   // Handles new changes to all new comic inputs except creator fields
   const handleChange = (e) => {
     setNewComicQuery({ ...newComicQuery, [e.target.name]: e.target.value })
@@ -84,9 +110,12 @@ const Stack = (props) => {
         console.log(error)
       }
     }
+    getStackComics()
   }
 
   const handleClickedComic = (e, index) => {
+    console.log(e)
+    console.log(index)
     // if (!(e.target.type === 'button')) {
     //   let clickedStackId = stacks[index]._id
     //   getByStackId(clickedStackId)
@@ -147,7 +176,7 @@ const Stack = (props) => {
       </ul>
       <div className="add-new-comic">
         <h3>Add A New Comic</h3>
-        <div onSubmit={handleSubmit} className="add-details">
+        <form onSubmit={postNewComic} className="add-details">
           <TextInput
             type="text"
             name="title"
@@ -177,7 +206,7 @@ const Stack = (props) => {
             onChange={handleChange}
           />
           <button>Submit</button>
-        </div>
+        </form>
         <div className="add-creator">
           <div className="add-creator-inputs">
             <TextInput

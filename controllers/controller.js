@@ -83,6 +83,7 @@ const getStackById = async (req, res) => {
 }
 
 const postComicByStackId = async (req, res) => {
+  console.log(req.body)
   try {
     const newComic = await Comic.create(req.body)
     await newComic.save()
