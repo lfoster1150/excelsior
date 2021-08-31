@@ -7,4 +7,6 @@ router.get('/', (req, res) => res.send('This is root!'))
 router.post('/user', controllers.postUser)
 router.get('/user/:username', controllers.getByUsername)
 
+router.post('/user/:username/stack', controllers.postStack)
+
 module.exports = router

@@ -27,7 +27,21 @@ const getByUsername = async (req, res) => {
   }
 }
 
+const postStack = async (req, res) => {
+  console.log(req.body)
+  try {
+    const newStack = await Stack.create(req.body)
+    await newStack.save()
+    if (newStack) {
+      return res.status(201).json({ newStack })
+    }
+  } catch (error) {
+    return res.status(500).send({ error: error.message })
+  }
+}
+
 module.exports = {
   postUser,
-  getByUsername
+  getByUsername,
+  postStack
 }

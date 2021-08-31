@@ -7,6 +7,8 @@ import TextInputWithButton from '../components/TextInputWithButton'
 
 const User = (props) => {
   const [userData, setUserData] = useState({})
+  const [stackQuery, setStackQuery] = useState('')
+  const [thumbnailQuery, setThumbnailQuery] = useState('')
   const { currentUsername, setCurrentUsername } = props
 
   const getDataByUsername = async () => {
@@ -19,31 +21,54 @@ const User = (props) => {
     }
   }
 
+  const postNewStack = async (e) => {
+    e.preventDefault()
+    try {
+      const res = await axios
+        .post(`${BASE_URL}/users/${currentUsername}/stack`, {
+          name: stackQuery,
+          thumbnail: thumbnailQuery,
+          user_id: userData._id
+        })
+        .then(function (response) {
+          console.log(response)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  const handleChange = (event) => {
+    setStackQuery(event.target.value)
+  }
+  const handleThumbChange = (event) => {
+    setThumbnailQuery(event.target.value)
+  }
+
   useEffect(() => {
     setCurrentUsername(props.match.params.username)
     getDataByUsername()
   }, [])
-
-  useEffect(() => {
-    if (!userData === undefined) {
-      getDataByUsername()
-    }
-  })
-
-  const testState = () => {
-    console.log(userData)
-  }
-
-  const testCollections = [
-    { name: 'Vaccuum' },
-    { listName: 'Sweep and Mop' },
-    { listName: 'Get groceries' }
-  ]
-
   return (
     <div className="page">
       <Nav />
-      <button onClick={testState}>TEST</button>
+      <p>Welcome {userData.name}</p>
+      <h2>create a new task below:</h2>
+      <div className="list-container"></div>
+      <TextInputWithButton
+        onSubmit={postNewStack}
+        name="Add"
+        placeholder="add new username"
+        value={stackQuery}
+        onChange={handleChange}
+      />
+      <TextInput
+        placeholder="thumbnail url (optional)"
+        value={thumbnailQuery}
+        onChange={handleThumbChange}
+      />
     </div>
   )
 }
