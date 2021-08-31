@@ -75,11 +75,26 @@ const User = (props) => {
   const handleThumbChange = (event) => {
     setThumbnailQuery(event.target.value)
   }
-  const deleteStack = (e) => {
-    console.log(e)
+  const deleteStack = async (e, index) => {
+    if (e.target.type === 'button') {
+      let newArray = [...stacks]
+      const objectToDelete = newArray[index]
+      newArray.splice(index, 1)
+      setStacks(newArray)
+      try {
+        const res = await axios.delete(
+          `${BASE_URL}/user/${currentUsername}/stack/${objectToDelete._id}`
+        )
+      } catch (error) {
+        console.log(error)
+      }
+    }
   }
+
+  const getByStackId = () => {}
+
   const handleClickedStack = (e) => {
-    console.log(e)
+    // console.log(e)
   }
 
   useEffect(() => {
@@ -109,14 +124,16 @@ const User = (props) => {
         {stacks.length === 0 ? (
           <h2>NO STACKS</h2>
         ) : (
-          stacks.map((stack) => (
+          stacks.map((stack, index) => (
             <StackCard
               className="stack-name"
               name={stack.name}
+              key={index}
               thumbnail={stack.thumbnail}
-              key={stack.name}
+              id={stack._id}
+              stackId={stack._id}
               onClick={handleClickedStack}
-              onClickDelete={deleteStack}
+              onClickDelete={(e) => deleteStack(e, index)}
             />
           ))
         )}

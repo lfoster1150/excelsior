@@ -56,9 +56,23 @@ const GetStacksByUserId = async (req, res) => {
   }
 }
 
+const deleteStackById = async (req, res) => {
+  try {
+    const { id } = req.params
+    const deleted = await Stack.findByIdAndDelete(id)
+    if (deleted) {
+      return res.status(200).send('Stack deleted')
+    }
+    throw new Error('Stack not found')
+  } catch (error) {
+    return res.status(500).send(error.message)
+  }
+}
+
 module.exports = {
   postUser,
   getByUsername,
   postStack,
-  GetStacksByUserId
+  GetStacksByUserId,
+  deleteStackById
 }
