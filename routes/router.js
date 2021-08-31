@@ -12,4 +12,7 @@ router.get('/user/:username/stack', controllers.GetStacksByUserId)
 router.get('/user/:username/stack/:id', controllers.getStackById)
 router.delete('/user/:username/stack/:id', controllers.deleteStackById)
 
+router.post('/user/:username/stack/:id/comic', controllers.postComicByStackId)
+router.get('/user/:username/stack/:id/comic', controllers.getComicsByStackId)
+
 module.exports = router

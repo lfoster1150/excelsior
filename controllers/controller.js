@@ -82,11 +82,39 @@ const getStackById = async (req, res) => {
   }
 }
 
+const postComicByStackId = async (req, res) => {
+  try {
+    const newComic = await Comic.create(req.body)
+    await newComic.save()
+    if (newComic) {
+      return res.status(201).json({ newComic })
+    }
+  } catch (error) {
+    return res.status(500).send({ error: error.message })
+  }
+}
+
+const getComicsByStackId = async (req, res) => {
+  try {
+    const { id } = req.params
+    const comics = await Comic.find({ stack: id })
+    console.log(comics)
+    if (comics) {
+      return res.status(200).json({ comics })
+    }
+    return res.status(404).send('Stack with the specified id does not exists')
+  } catch (error) {
+    return res.status(500).send(error.message)
+  }
+}
+
 module.exports = {
   postUser,
   getByUsername,
   postStack,
   GetStacksByUserId,
   deleteStackById,
-  getStackById
+  getStackById,
+  postComicByStackId,
+  getComicsByStackId
 }

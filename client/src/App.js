@@ -22,6 +22,16 @@ function App() {
           )}
         />
         <Route
+          path="/user/:username/stack/:id"
+          component={(props) => (
+            <Stack
+              {...props}
+              currentUsername={currentUsername}
+              setCurrentUsername={setCurrentUsername}
+            />
+          )}
+        />
+        <Route
           path="/user/:username"
           component={(props) => (
             <User
@@ -31,7 +41,6 @@ function App() {
             />
           )}
         />
-        <Route path="/user/:username" component={Stack} />
       </Switch>
     </div>
   )

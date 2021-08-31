@@ -13,24 +13,6 @@ const User = (props) => {
   const [thumbnailQuery, setThumbnailQuery] = useState('')
   const { currentUsername, setCurrentUsername } = props
 
-  const testStacks = [
-    {
-      name: 'Stack 1',
-      thumbnail: '',
-      user: '612d3574602e9f1aa9c5704e'
-    },
-    {
-      name: 'Stack 3',
-      thumbnail: '',
-      user: '612d3574602e9f1aa9c5704e'
-    },
-    {
-      name: 'Stack 2',
-      thumbnail: '',
-      user: '612d3574602e9f1aa9c5704e'
-    }
-  ]
-
   const getDataByUsername = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/user/${currentUsername}`)
@@ -97,7 +79,7 @@ const User = (props) => {
         `${BASE_URL}/user/${currentUsername}/stack/${id}`
       )
       console.log(props.history)
-      props.history.push(`/stack/${id}`)
+      props.history.push(`/user/${currentUsername}/stack/${id}`)
     } catch (err) {
       console.log(err)
     }
