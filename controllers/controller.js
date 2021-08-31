@@ -40,8 +40,25 @@ const postStack = async (req, res) => {
   }
 }
 
+const GetStacksByUserId = async (req, res) => {
+  try {
+    const { username } = req.params
+    const user = await User.find({ username: username })
+    const stacks = await Stack.find({ user: user[0]._id })
+    if (stacks) {
+      return res.status(200).json({ stacks })
+    }
+    return res
+      .status(404)
+      .send('User with the specified Username does not exists')
+  } catch (error) {
+    return res.status(500).send(error.message)
+  }
+}
+
 module.exports = {
   postUser,
   getByUsername,
-  postStack
+  postStack,
+  GetStacksByUserId
 }

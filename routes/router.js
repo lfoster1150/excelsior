@@ -8,5 +8,6 @@ router.post('/user', controllers.postUser)
 router.get('/user/:username', controllers.getByUsername)
 
 router.post('/user/:username/stack', controllers.postStack)
+router.get('/user/:username/stack', controllers.GetStacksByUserId)
 
 module.exports = router
