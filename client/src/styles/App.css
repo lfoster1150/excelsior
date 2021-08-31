@@ -28,3 +28,37 @@
   height: 25px;
   z-index: 5;
 }
+
+.comic-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.comic-card {
+  z-index: 4;
+  display: flex;
+  height: 100px;
+  width: 300px;
+  margin: 10px;
+  padding: 10px;
+  border: 3px solid black;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.comic-cover {
+  height: inherit;
+}
+
+.comic-card > button {
+  height: 25px;
+  z-index: 5;
+}
+.add-creator {
+  display: flex;
+}
+.creator-card-container {
+  display: flex;
+}
+.creator-card {
+  display: flex;
+}

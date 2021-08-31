@@ -2,15 +2,34 @@ import React from 'react'
 import defaultThumb from './images/comics.jpg'
 
 const ComicCardInStack = (props) => {
-  const { name, thumbnail, onClick, onClickDelete, stackId } = props
+  const {
+    creators,
+    title,
+    description,
+    release_date,
+    cover_image,
+    thumbnail,
+    api,
+    api_id,
+    id,
+    comicId,
+    onClick,
+    onClickDelete
+  } = props
+
   return (
-    <div className="stack-card" onClick={onClick}>
-      <img src={thumbnail || defaultThumb} alt={name} className="stack-thumb" />
-      <h3>{name}</h3>
+    <li className="comic-card">
+      <img
+        onClick={onClick}
+        src={cover_image || defaultThumb}
+        alt={title}
+        className="comic-cover"
+      />
+      <h3>{title}</h3>
       <button type="button" onClick={onClickDelete}>
         X
       </button>
-    </div>
+    </li>
   )
 }
 

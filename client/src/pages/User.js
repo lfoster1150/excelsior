@@ -106,6 +106,7 @@ const User = (props) => {
       <TextInputWithButton
         onSubmit={postNewStack}
         name="Add"
+        text="Add"
         placeholder="add new stack"
         value={stackQuery}
         onChange={handleChange}

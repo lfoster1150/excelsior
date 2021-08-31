@@ -108,6 +108,20 @@ const getComicsByStackId = async (req, res) => {
   }
 }
 
+const deleteComicById = async (req, res) => {
+  console.log(req.params)
+  try {
+    const { comic_id } = req.params
+    const deleted = await Comic.findByIdAndDelete(comic_id)
+    if (deleted) {
+      return res.status(200).send('Comic deleted')
+    }
+    throw new Error('Comic not found')
+  } catch (error) {
+    return res.status(500).send(error.message)
+  }
+}
+
 module.exports = {
   postUser,
   getByUsername,
@@ -116,5 +130,6 @@ module.exports = {
   deleteStackById,
   getStackById,
   postComicByStackId,
-  getComicsByStackId
+  getComicsByStackId,
+  deleteComicById
 }

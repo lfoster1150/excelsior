@@ -64,6 +64,7 @@ const Home = (props) => {
           <TextInputWithButton
             onSubmit={getByUsername}
             name="Submit"
+            text="Submit"
             placeholder="enter new username"
             value={usernameQuery}
             onChange={handleChange}
@@ -86,6 +87,7 @@ const Home = (props) => {
               <TextInputWithButton
                 onSubmit={postNewUser}
                 name="Submit"
+                text="Submit"
                 placeholder="enter new username"
                 value={newUsernameQuery}
                 onChange={handleChangeNewUser}
