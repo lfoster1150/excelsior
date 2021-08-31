@@ -69,10 +69,24 @@ const deleteStackById = async (req, res) => {
   }
 }
 
+const getStackById = async (req, res) => {
+  try {
+    const { id } = req.params
+    const stack = await Stack.findById(id)
+    if (stack) {
+      return res.status(200).json({ stack })
+    }
+    return res.status(404).send('Stack with the specified _id does not exists')
+  } catch (error) {
+    return res.status(500).send(error.message)
+  }
+}
+
 module.exports = {
   postUser,
   getByUsername,
   postStack,
   GetStacksByUserId,
-  deleteStackById
+  deleteStackById,
+  getStackById
 }

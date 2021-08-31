@@ -9,6 +9,7 @@ router.get('/user/:username', controllers.getByUsername)
 
 router.post('/user/:username/stack', controllers.postStack)
 router.get('/user/:username/stack', controllers.GetStacksByUserId)
+router.get('/user/:username/stack/:id', controllers.getStackById)
 router.delete('/user/:username/stack/:id', controllers.deleteStackById)
 
 module.exports = router

@@ -10,7 +10,6 @@ const StackCard = (props) => {
       <button type="button" onClick={onClickDelete}>
         X
       </button>
-      <h6>{stackId}</h6>
     </div>
   )
 }

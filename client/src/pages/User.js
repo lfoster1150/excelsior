@@ -91,10 +91,23 @@ const User = (props) => {
     }
   }
 
-  const getByStackId = () => {}
+  const getByStackId = async (id) => {
+    try {
+      const res = await axios.get(
+        `${BASE_URL}/user/${currentUsername}/stack/${id}`
+      )
+      console.log(props.history)
+      props.history.push(`/stack/${id}`)
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
-  const handleClickedStack = (e) => {
-    // console.log(e)
+  const handleClickedStack = (e, index) => {
+    if (!(e.target.type === 'button')) {
+      let clickedStackId = stacks[index]._id
+      getByStackId(clickedStackId)
+    }
   }
 
   useEffect(() => {
@@ -132,7 +145,7 @@ const User = (props) => {
               thumbnail={stack.thumbnail}
               id={stack._id}
               stackId={stack._id}
-              onClick={handleClickedStack}
+              onClick={(e) => handleClickedStack(e, index)}
               onClickDelete={(e) => deleteStack(e, index)}
             />
           ))
