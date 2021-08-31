@@ -25,10 +25,11 @@ const User = (props) => {
     e.preventDefault()
     try {
       const res = await axios
-        .post(`${BASE_URL}/users/${currentUsername}/stack`, {
+      console
+        .post(`${BASE_URL}/user/${currentUsername}/stack`, {
           name: stackQuery,
           thumbnail: thumbnailQuery,
-          user_id: userData._id
+          user: userData._id
         })
         .then(function (response) {
           console.log(response)
@@ -60,7 +61,7 @@ const User = (props) => {
       <TextInputWithButton
         onSubmit={postNewStack}
         name="Add"
-        placeholder="add new username"
+        placeholder="add new stack"
         value={stackQuery}
         onChange={handleChange}
       />
