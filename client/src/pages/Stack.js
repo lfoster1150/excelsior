@@ -160,7 +160,7 @@ const Stack = (props) => {
 
   return (
     <div className="page">
-      <Nav username={username} id={id} />
+      <Nav username={username} />
       <h1>Stack Page</h1>
       <ul className="stack-container">
         {stackComics.length === 0 ? (

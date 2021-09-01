@@ -9,7 +9,7 @@ const Nav = (props) => {
         <NavLink className="nav-link" to={`/user/${username}`}>
           Home
         </NavLink>
-        {id ? (
+        {username ? (
           <NavLink className="nav-link" to={`/user/${username}`}>
             Back To User
           </NavLink>
