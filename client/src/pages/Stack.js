@@ -22,6 +22,7 @@ const Stack = (props) => {
     job_title: ''
   })
   const { currentUsername, setCurrentUsername } = props
+  const { username, id, comic_id } = props.match.params
 
   const setCurrentStackIdOnMount = () => {
     setCurrentStackId(props.match.params.id)
@@ -158,8 +159,8 @@ const Stack = (props) => {
   }, [])
 
   return (
-    <div>
-      <Nav />
+    <div className="page">
+      <Nav username={username} id={id} />
       <h1>Stack Page</h1>
       <ul className="stack-container">
         {stackComics.length === 0 ? (
@@ -187,63 +188,65 @@ const Stack = (props) => {
       </ul>
       <div className="add-new-comic">
         <h3>Add A New Comic</h3>
-        <form onSubmit={postNewComic} className="add-details">
-          <TextInput
-            type="text"
-            name="title"
-            placeholder="enter comic title"
-            value={newComicQuery.title}
-            onChange={handleChange}
-          />
-          <TextInput
-            type="text-area"
-            name="description"
-            placeholder="enter comic description (optional)"
-            value={newComicQuery.description}
-            onChange={handleChange}
-          />
-          <TextInput
-            type="date"
-            placeholder={'enter release date (optional)'}
-            name="release_date"
-            value={newComicQuery.release_date}
-            onChange={handleChange}
-          />
-          <TextInput
-            type="text"
-            placeholder={'enter URL for image cover (optional)'}
-            name="cover_image"
-            value={newComicQuery.cover_image}
-            onChange={handleChange}
-          />
-          <button>Submit</button>
-        </form>
-        <div className="add-creator">
-          <div className="add-creator-inputs">
+        <div className="form-container">
+          <form onSubmit={postNewComic} className="add-details">
             <TextInput
               type="text"
-              placeholder={'enter job title of creator'}
-              name="job_title"
-              value={creatorQuery.job_title}
-              onChange={handleCreatorChange}
+              name="title"
+              placeholder="enter comic title"
+              value={newComicQuery.title}
+              onChange={handleChange}
             />
-            <TextInputWithButton
+            <TextInput
+              type="text-area"
+              name="description"
+              placeholder="enter comic description (optional)"
+              value={newComicQuery.description}
+              onChange={handleChange}
+            />
+            <TextInput
+              type="date"
+              placeholder={'enter release date (optional)'}
+              name="release_date"
+              value={newComicQuery.release_date}
+              onChange={handleChange}
+            />
+            <TextInput
               type="text"
-              placeholder={'enter name of creator'}
-              name="name"
-              text="ADD"
-              value={creatorQuery.name}
-              onChange={handleCreatorChange}
-              onSubmit={addCreatorToState}
+              placeholder={'enter URL for image cover (optional)'}
+              name="cover_image"
+              value={newComicQuery.cover_image}
+              onChange={handleChange}
             />
-          </div>
-          <div className="creator-card-container">
-            {creatorState.length === 0 ? (
-              <h2>No creators added yet...</h2>
-            ) : (
-              addCreatorMap()
-            )}
-          </div>
+            <button>Submit</button>
+          </form>
+          <form onSubmit={addCreatorToState} className="add-creator">
+            <div className="add-creator-inputs">
+              <TextInput
+                type="text"
+                placeholder={'enter job title of creator'}
+                name="job_title"
+                value={creatorQuery.job_title}
+                onChange={handleCreatorChange}
+              />
+              <TextInput
+                type="text"
+                placeholder={'enter name of creator'}
+                name="name"
+                text="ADD"
+                value={creatorQuery.name}
+                onChange={handleCreatorChange}
+              />
+              <button>ADD</button>
+            </div>
+            <div className="creator-card-container">
+              {creatorState.length === 0 ? (
+                <h2>No creators added yet...</h2>
+              ) : (
+                addCreatorMap()
+              )}
+            </div>
+          </form>
         </div>
       </div>
     </div>

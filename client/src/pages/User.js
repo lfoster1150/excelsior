@@ -100,7 +100,7 @@ const User = (props) => {
 
   return (
     <div className="page">
-      <Nav />
+      <Nav username={currentUsername} />
       <p>Welcome {userData.name}</p>
       <h2>create a new comic stack below:</h2>
       <TextInputWithButton

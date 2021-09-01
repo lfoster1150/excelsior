@@ -57,7 +57,6 @@ const Home = (props) => {
   }
   return (
     <div className="page">
-      <Nav />
       <div>
         <div className="existing-user">
           <h2>Enter your username to see your collections:</h2>

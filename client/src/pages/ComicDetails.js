@@ -31,7 +31,7 @@ const ComicDetails = (props) => {
   // watches comicDetails
   useEffect(() => {
     if (detailsSet) {
-      console.log(comicDetails.creators)
+      console.log(comicDetails)
       setCreatorArray(comicDetails.creators)
     }
   }, [detailsSet])
@@ -42,19 +42,19 @@ const ComicDetails = (props) => {
 
   return (
     <div className="page">
-      <Nav />
-      <div className="back-container">
-        <a href={`/user/${username}/stack/${id}/comic`} className="back-link">
-          BACK TO STACK
-        </a>
-      </div>
+      <Nav username={username} id={id} />
       <div className="comic-details-container">
-        <h2>Title: {comicDetails.title}</h2>
+        <h2>{comicDetails.title}</h2>
         <img
           src={comicDetails.cover_image || defaultThumb}
           alt={comicDetails.title}
           className="cover"
         />
+        {comicDetails.release_date ? (
+          <h4 className="release-date">
+            Release date: {comicDetails.release_date}
+          </h4>
+        ) : undefined}
         <ul className="creators-ul">
           {creatorArray.length === 0 ? (
             <li>Creators Not Available</li>
@@ -62,8 +62,9 @@ const ComicDetails = (props) => {
             addDetails()
           )}
         </ul>
-        <p>Description: {comicDetails.description}</p>
-        <h4>Release date: {comicDetails.release_date}</h4>
+        <p className="comic-description">
+          Description: {comicDetails.description}
+        </p>
       </div>
     </div>
   )
