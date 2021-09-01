@@ -3,6 +3,7 @@ import './styles/App.css'
 import Home from './pages/Home'
 import User from './pages/User'
 import Stack from './pages/Stack'
+import ComicDetails from './pages/ComicDetails'
 import { Route, Switch } from 'react-router-dom'
 
 function App() {
@@ -15,6 +16,16 @@ function App() {
           path="/"
           component={(props) => (
             <Home
+              {...props}
+              currentUsername={currentUsername}
+              setCurrentUsername={setCurrentUsername}
+            />
+          )}
+        />
+        <Route
+          path="/user/:username/stack/:id/comic/:comic_id"
+          component={(props) => (
+            <ComicDetails
               {...props}
               currentUsername={currentUsername}
               setCurrentUsername={setCurrentUsername}

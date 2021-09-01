@@ -14,6 +14,10 @@ router.delete('/user/:username/stack/:id', controllers.deleteStackById)
 
 router.post('/user/:username/stack/:id/comic', controllers.postComicByStackId)
 router.get('/user/:username/stack/:id/comic', controllers.getComicsByStackId)
+router.get(
+  '/user/:username/stack/:id/comic/:comic_id',
+  controllers.getComicDetailsById
+)
 router.delete(
   '/user/:username/stack/:id/comic/:comic_id',
   controllers.deleteComicById

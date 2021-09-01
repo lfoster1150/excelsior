@@ -1,6 +1,12 @@
 .App {
   text-align: center;
 }
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .input-text {
   display: inline;
 }
@@ -61,4 +67,30 @@
 }
 .creator-card {
   display: flex;
+}
+
+.comic-details-container {
+  width: 600px;
+}
+.cover {
+  width: inherit;
+}
+
+.back-container {
+  display: flex;
+  align-self: flex-start;
+}
+.creators-ul {
+  font-size: 24px;
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.creators-ul > li {
+  font-size: 20px;
+  border: black solid 1px;
+  margin: 5px;
+  padding: 5px;
 }

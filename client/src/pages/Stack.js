@@ -112,15 +112,26 @@ const Stack = (props) => {
     }
     getStackComics()
   }
-
+  // handles when comic cover is clicked in stack view
   const handleClickedComic = (e, index) => {
-    console.log(e)
-    console.log(index)
-    // if (!(e.target.type === 'button')) {
-    //   let clickedStackId = stacks[index]._id
-    //   getByStackId(clickedStackId)
-    // }
+    e.preventDefault()
+    let clickedComicId = stackComics[index]._id
+    getComicDetailsByStackId(clickedComicId)
   }
+  // Uses ID from click handler to travel to specific comics details page
+  const getComicDetailsByStackId = async (id) => {
+    try {
+      const res = await axios.get(
+        `${BASE_URL}/user/${currentUsername}/stack/${currentStackId}/comic/${id}`
+      )
+      props.history.push(
+        `/user/${currentUsername}/stack/${currentStackId}/comic/${id}`
+      )
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   const addCreatorMap = () => {
     return creatorState.map((creator, index) => (
       <CreatorCard
