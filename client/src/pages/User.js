@@ -78,7 +78,6 @@ const User = (props) => {
       const res = await axios.get(
         `${BASE_URL}/user/${currentUsername}/stack/${id}`
       )
-      console.log(props.history)
       props.history.push(`/user/${currentUsername}/stack/${id}`)
     } catch (err) {
       console.log(err)

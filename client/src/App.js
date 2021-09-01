@@ -5,6 +5,7 @@ import User from './pages/User'
 import Stack from './pages/Stack'
 import ComicDetails from './pages/ComicDetails'
 import { Route, Switch } from 'react-router-dom'
+import MarvelSearch from './pages/MarvelSearch'
 
 function App() {
   const [currentUsername, setCurrentUsername] = useState('')
@@ -40,6 +41,12 @@ function App() {
               currentUsername={currentUsername}
               setCurrentUsername={setCurrentUsername}
             />
+          )}
+        />
+        <Route
+          path="/user/:username/marvel"
+          component={(props) => (
+            <MarvelSearch {...props} currentUsername={currentUsername} />
           )}
         />
         <Route

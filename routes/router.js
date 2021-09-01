@@ -1,8 +1,9 @@
 const { Router } = require('express')
 const router = Router()
 const controllers = require('../controllers/controller.js')
+const marvelControllers = require('../controllers/marvel_controller.js')
 
-router.get('/', (req, res) => res.send('This is root!'))
+// router.get('/', (req, res) => res.send('This is root!'))
 
 router.post('/user', controllers.postUser)
 router.get('/user/:username', controllers.getByUsername)
@@ -21,6 +22,12 @@ router.get(
 router.delete(
   '/user/:username/stack/:id/comic/:comic_id',
   controllers.deleteComicById
+)
+
+// routers for Marvel Api
+router.post(
+  '/user/:username/stack/:id/comic',
+  marvelControllers.postMarvelComicByStackId
 )
 
 module.exports = router

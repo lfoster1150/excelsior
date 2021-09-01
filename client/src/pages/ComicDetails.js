@@ -31,7 +31,6 @@ const ComicDetails = (props) => {
   // watches comicDetails
   useEffect(() => {
     if (detailsSet) {
-      console.log(comicDetails)
       setCreatorArray(comicDetails.creators)
     }
   }, [detailsSet])
