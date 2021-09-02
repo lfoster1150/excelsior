@@ -5,6 +5,7 @@ import BootNav from '../components/BootNav'
 import TextInput from '../components/TextInput'
 import TextInputWithButton from '../components/TextInputWithButton'
 import MarvelComicCard from '../components/MarvelComicCard'
+import { Button, Form } from 'react-bootstrap'
 import StackCard from '../components/StackCard'
 const md5 = require('js-md5')
 
@@ -22,7 +23,8 @@ const MarvelSearch = (props) => {
       const res = await axios.get(
         `http://gateway.marvel.com/v1/public/comics?title=${searchQuery}&ts=${ts}&apikey=${MARVEL_KEY}&hash=${hash}`
       )
-      setSearchResults(res.data.data.results)
+      console.log(res)
+      setSearchResults(...searchResults, res.data.data.results)
     } catch (err) {
       console.log(err)
     }
@@ -87,15 +89,21 @@ const MarvelSearch = (props) => {
   return (
     <div className="page">
       <BootNav username={username} />
-      <h2>Search:</h2>
-      <TextInputWithButton
-        onSubmit={handleSubmit}
-        name="search"
-        text="Submit"
-        placeholder="search for comics"
-        value={searchQuery}
-        onChange={handleChange}
-      />
+      <Form className="bootstrap-form-contain" onSubmit={handleSubmit}>
+        <Form.Group className="mb-3" controlId="formBasicURL">
+          <Form.Label>Search:</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="search for comics"
+            value={searchQuery}
+            onChange={handleChange}
+          />
+        </Form.Group>
+        <Button variant="primary" type="submit" className="submit-button">
+          Submit
+        </Button>
+      </Form>
+
       <div className="search-results-container">
         {searchResults.length === 0 ? (
           <h2>NO COMICS</h2>

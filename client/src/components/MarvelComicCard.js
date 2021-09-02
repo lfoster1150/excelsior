@@ -2,21 +2,7 @@ import React from 'react'
 import defaultThumb from './images/comics.jpg'
 
 const MarvelComicCard = (props) => {
-  const {
-    creators,
-    title,
-    description,
-    release_date,
-    cover_image,
-    thumbnail,
-    api,
-    api_id,
-    id,
-    comicId,
-    onClick,
-    onClickAdd,
-    username
-  } = props
+  const { title, cover_image, onClick, onClickAdd } = props
 
   return (
     <li className="marvel-comic-card">

@@ -99,6 +99,8 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: 20px;
+  color: #ffba08;
 }
 
 .comic-cover {
