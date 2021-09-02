@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import defaultThumb from './images/comics.jpg'
-import { Card, OverlayTrigger } from 'react-bootstrap'
+import { Card, Button } from 'react-bootstrap'
 
 const ComicCardInStack = (props) => {
   const [showOverlay, setShowOverlay] = useState(false)
@@ -20,19 +20,6 @@ const ComicCardInStack = (props) => {
     onClickDelete
   } = props
 
-  // const showOverlay = (e) => {
-  //   let overlay = e.target.lastElementChild
-  //   if (overlay) {
-  //     e.target.lastElementChild.style.zIndex = '1'
-  //   }
-  // }
-  // const hideOverlay = (e) => {
-  //   let overlay = e.target.lastElementChild
-  //   if (overlay) {
-  //     e.target.lastElementChild.style.zIndex = '-1'
-  //   }
-  // }
-
   return (
     <Card
       className="card-in-stack"
@@ -48,6 +35,13 @@ const ComicCardInStack = (props) => {
       {showOverlay ? (
         <Card.ImgOverlay>
           <Card.Title>{title}</Card.Title>
+          <Button
+            className="delete-button"
+            variant="dark"
+            onClick={onClickDelete}
+          >
+            X
+          </Button>
         </Card.ImgOverlay>
       ) : undefined}
     </Card>

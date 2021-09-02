@@ -6,7 +6,15 @@ import TextInputWithButton from '../components/TextInputWithButton'
 import ComicCardInStack from '../components/ComicCardInStack'
 import { BASE_URL } from '../globals'
 import CreatorCard from '../components/CreatorCard'
-import { CardGroup, Card } from 'react-bootstrap'
+import {
+  CardGroup,
+  Card,
+  Nav,
+  Navbar,
+  Container,
+  Form,
+  Button
+} from 'react-bootstrap'
 
 const Stack = (props) => {
   const [currentStackId, setCurrentStackId] = useState('')
@@ -166,6 +174,40 @@ const Stack = (props) => {
   return (
     <div className="page">
       <BootNav username={username} />
+      <Navbar className="add-comic-nav" expand="lg">
+        <Container fluid>
+          <Navbar.Brand>Add a new comic...</Navbar.Brand>
+          <Navbar.Toggle />
+          <Navbar.Collapse>
+            <Form
+              className="bootstrap-form-contain"
+              onSubmit={addCreatorToState}
+            >
+              <Form.Group className="mb-3" controlId="formBasicName">
+                <Form.Label>Creator role:</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="'enter role of creator'"
+                  value={creatorQuery.job_title}
+                  onChange={handleCreatorChange}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicURL">
+                <Form.Label>Creator Name:</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="image url (optional)"
+                  value={creatorQuery.name}
+                  onChange={handleCreatorChange}
+                />
+              </Form.Group>
+              <Button variant="primary" type="submit" className="submit-button">
+                Submit
+              </Button>
+            </Form>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
       <ul className="stack-container">
         {stackComics.length === 0 ? (
           <h2>NO COMICS</h2>
@@ -228,7 +270,7 @@ const Stack = (props) => {
             <div className="add-creator-inputs">
               <TextInput
                 type="text"
-                placeholder={'enter job title of creator'}
+                placeholder={'enter role of creator'}
                 name="job_title"
                 value={creatorQuery.job_title}
                 onChange={handleCreatorChange}

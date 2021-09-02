@@ -261,16 +261,48 @@ body {
 
 .card-img-overlay {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  background-color: rgba(50, 50, 50, 0.75);
+  padding: 20px;
+  background-color: rgba(40, 40, 40, 0.75);
 }
 .card-img-overlay > .card-title {
-  background-color: rgba(50, 50, 50, 0.75);
   background-color: #03071e;
   color: white;
   font-size: 18px;
   padding: 5px;
   border: 1px solid #f48c06;
   border-radius: 5px;
+}
+.card-img-overlay > .delete-button {
+  justify-self: flex-end;
+  font-weight: bold;
+  color: white;
+  background-color: #d00000;
+  border: 1px solid #03071e;
+}
+.card-img-overlay > .delete-button:hover {
+  justify-self: flex-end;
+  font-weight: bold;
+  color: white;
+  background-color: #03071e;
+  border: 1px solid #03071e;
+}
+.add-comic-nav {
+  background-color: #03071e;
+  border: 1px groove #03071e;
+  border-radius: 5px;
+  align-self: flex-start;
+  margin: 10px;
+}
+.add-comic-nav > .container-fluid > .navbar-brand {
+  color: white;
+}
+.add-comic-nav > .container-fluid > .navbar-toggler {
+  background-color: white;
+  border: 1px solid #f48c06;
+}
+.add-comic-nav > .container-fluid > .navbar-toggler:hover {
+  background-color: #f48c06;
 }
