@@ -5,20 +5,7 @@ import { Card, Button } from 'react-bootstrap'
 const ComicCardInStack = (props) => {
   const [showOverlay, setShowOverlay] = useState(false)
 
-  const {
-    creators,
-    title,
-    description,
-    release_date,
-    cover_image,
-    thumbnail,
-    api,
-    api_id,
-    id,
-    comicId,
-    onClick,
-    onClickDelete
-  } = props
+  const { title, cover_image, onClick, onClickDelete } = props
 
   return (
     <Card
@@ -45,19 +32,6 @@ const ComicCardInStack = (props) => {
         </Card.ImgOverlay>
       ) : undefined}
     </Card>
-
-    // <li className="comic-card">
-    //   <img
-    //     onClick={onClick}
-    //     src={cover_image || defaultThumb}
-    //     alt={title}
-    //     className="comic-cover"
-    //   />
-    //   <h3>{title}</h3>
-    //   <button type="button" onClick={onClickDelete}>
-    //     X
-    //   </button>
-    // </li>
   )
 }
 
