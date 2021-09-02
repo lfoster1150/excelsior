@@ -275,6 +275,7 @@ body {
 
 .card-in-stack {
   width: 200px;
+  margin: 10px;
 }
 .card-in-stack:hover {
   cursor: pointer;

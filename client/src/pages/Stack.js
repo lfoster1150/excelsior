@@ -74,7 +74,6 @@ const Stack = (props) => {
 
   const postNewComic = async (e) => {
     e.preventDefault()
-
     try {
       const res = await axios
         .post(
@@ -236,24 +235,28 @@ const Stack = (props) => {
                 <Form.Group className="mb-3" controlId="formBasicURL">
                   <Form.Label>New Comic Details:</Form.Label>
                   <Form.Control
+                    name="title"
                     type="text"
                     placeholder="enter comic title"
-                    value={newComicQuery.name}
+                    value={newComicQuery.title}
                     onChange={handleChange}
                   />
                   <Form.Control
+                    name="description"
                     as="textarea"
                     placeholder="enter comic description (optional)"
-                    value={creatorQuery.description}
+                    value={newComicQuery.description}
                     onChange={handleChange}
                   />
                   <Form.Control
+                    name="release_date"
                     type="text"
                     placeholder="enter release date (optional)"
                     value={newComicQuery.release_date}
                     onChange={handleChange}
                   />
                   <Form.Control
+                    name="cover_image"
                     type="text"
                     placeholder="enter image url (optional)"
                     value={newComicQuery.cover_image}
@@ -272,7 +275,7 @@ const Stack = (props) => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <ul className="stack-container">
+      <Container className="stack-container">
         {stackComics.length === 0 ? (
           <h2>NO COMICS</h2>
         ) : (
@@ -295,70 +298,7 @@ const Stack = (props) => {
             />
           ))
         )}
-      </ul>
-      <div className="add-new-comic">
-        <h3>Add A New Comic</h3>
-        <div className="form-container">
-          <form onSubmit={postNewComic} className="add-details">
-            <TextInput
-              type="text"
-              name="title"
-              placeholder="enter comic title"
-              value={newComicQuery.title}
-              onChange={handleChange}
-            />
-            <TextInput
-              type="text-area"
-              name="description"
-              placeholder="enter comic description (optional)"
-              value={newComicQuery.description}
-              onChange={handleChange}
-            />
-            <TextInput
-              type="date"
-              placeholder={'enter release date (optional)'}
-              name="release_date"
-              value={newComicQuery.release_date}
-              onChange={handleChange}
-            />
-            <TextInput
-              type="text"
-              placeholder={'enter URL for image cover (optional)'}
-              name="cover_image"
-              value={newComicQuery.cover_image}
-              onChange={handleChange}
-            />
-            <button>Submit</button>
-          </form>
-          {/* <form onSubmit={addCreatorToState} className="add-creator">
-            <div className="add-creator-inputs">
-              <TextInput
-                type="text"
-                placeholder={'enter role of creator'}
-                name="job_title"
-                value={creatorQuery.job_title}
-                onChange={handleCreatorChange}
-              />
-              <TextInput
-                type="text"
-                placeholder={'enter name of creator'}
-                name="name"
-                text="ADD"
-                value={creatorQuery.name}
-                onChange={handleCreatorChange}
-              />
-              <button>ADD</button>
-            </div>
-            <div className="creator-card-container">
-              {creatorState.length === 0 ? (
-                <h2>No creators added yet...</h2>
-              ) : (
-                addCreatorMap()
-              )}
-            </div>
-          </form> */}
-        </div>
-      </div>
+      </Container>
     </div>
   )
 }
