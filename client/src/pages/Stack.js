@@ -181,58 +181,45 @@ const Stack = (props) => {
         <Container fluid>
           <Navbar.Brand>Add a new comic...</Navbar.Brand>
           <Navbar.Toggle />
-          <Navbar.Collapse fluid>
-            <Form
-              className="bootstrap-form-contain"
-              onSubmit={addCreatorToState}
-            >
-              <Container className="add-creator-container" fluid>
-                <Col>
-                  <Row fluid>
-                    <Col>
-                      <Form.Group className="mb-3" controlId="formBasicName">
-                        <Form.Label>Creator role:</Form.Label>
-                        <Form.Control
-                          type="text"
-                          placeholder="enter role"
-                          value={creatorQuery.job_title}
-                          onChange={handleCreatorChange}
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col>
-                      <Form.Group className="mb-3" controlId="formBasicURL">
-                        <Form.Label>Creator Name:</Form.Label>
-                        <Form.Control
-                          type="text"
-                          placeholder="enter name"
-                          value={creatorQuery.name}
-                          onChange={handleCreatorChange}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Button
-                      variant="primary"
-                      type="submit"
-                      className="submit-button"
-                    >
-                      Submit
-                    </Button>
-                  </Row>
-                </Col>
-                <Col>
-                  <div className="creator-card-container">
-                    {creatorState.length === 0 ? (
-                      <h2>No creators added yet...</h2>
-                    ) : (
-                      addCreatorMap()
-                    )}
-                  </div>
-                </Col>
-              </Container>
-            </Form>
+          <Navbar.Collapse>
+            <Container fluid className="add-creator-container">
+              <Form
+                className="bootstrap-form-contain"
+                onSubmit={addCreatorToState}
+              >
+                <Row fluid>
+                  <Col>
+                    <Form.Group className="mb-3" controlId="formBasicName">
+                      <Form.Label>Creator role:</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="enter role of creator"
+                        value={creatorQuery.job_title}
+                        onChange={handleCreatorChange}
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col>
+                    <Form.Group className="mb-3" controlId="formBasicURL">
+                      <Form.Label>Creator Name:</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="image url (optional)"
+                        value={creatorQuery.name}
+                        onChange={handleCreatorChange}
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Button
+                  variant="primary"
+                  type="submit"
+                  className="submit-button"
+                >
+                  Submit
+                </Button>
+              </Form>
+            </Container>
           </Navbar.Collapse>
         </Container>
       </Navbar>
