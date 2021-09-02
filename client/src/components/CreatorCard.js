@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Card, ListGroup } from 'react-bootstrap'
+import { Button, ListGroup } from 'react-bootstrap'
 
 const CreatorCard = (props) => {
   return (
@@ -9,12 +9,6 @@ const CreatorCard = (props) => {
         X
       </Button>
     </ListGroup.Item>
-    // <div className="creator-card" key={props.key}>
-    //   <p>{props.string}</p>
-    //   <button type="button" onClick={props.onClick}>
-    //     X
-    //   </button>
-    // </div>
   )
 }
 
