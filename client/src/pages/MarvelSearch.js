@@ -12,9 +12,10 @@ const MarvelSearch = (props) => {
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState([])
   const { username } = props.match.params
+  const { currentSearch, setCurrentSearch } = props
 
-  const searchComics = async (e) => {
-    e.preventDefault()
+  const searchComics = async () => {
+    setCurrentSearch(searchQuery)
     let ts = Date.now()
     let hash = md5(`${ts}${PRIVATE_KEY}${MARVEL_KEY}`)
     try {
@@ -30,7 +31,25 @@ const MarvelSearch = (props) => {
     setSearchQuery(e.target.value)
   }
 
-  const handleClickedComic = () => {}
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    searchComics()
+  }
+
+  const goToMarvelComicPage = (id) => {
+    console.log(id)
+    try {
+      // const res = await axios.get(`${BASE_URL}/user/${currentUsername}/marvel/`)
+      props.history.push(`/user/${username}/marvel/${id}`)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  const handleClickedComic = (e, index) => {
+    e.preventDefault()
+    let clickedComicId = searchResults[index].id
+    goToMarvelComicPage(clickedComicId)
+  }
 
   const addComic = () => {}
 
@@ -47,6 +66,7 @@ const MarvelSearch = (props) => {
         thumbnail={comic.thumbnail}
         api="Marvel"
         api_id={comic.id}
+        username={username}
         onClick={(e) => handleClickedComic(e, index)}
         onClickAdd={(e) => addComic(e, index)}
       />
@@ -57,14 +77,19 @@ const MarvelSearch = (props) => {
     addSearchResultsMap()
   }, [searchResults])
 
-  useEffect(() => {}, [])
+  useEffect(() => {
+    // if (currentSearch) {
+    //   setSearchQuery(currentSearch)
+    //   searchComics()
+    // }
+  }, [])
 
   return (
     <div className="page">
       <Nav username={username} />
       <h2>Search:</h2>
       <TextInputWithButton
-        onSubmit={searchComics}
+        onSubmit={handleSubmit}
         name="search"
         text="Submit"
         placeholder="search for comics"

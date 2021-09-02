@@ -6,7 +6,7 @@ const Nav = (props) => {
   return (
     <nav className="nav-bar">
       <div className="links">
-        <NavLink className="nav-link" to={`/user/${username}`}>
+        <NavLink className="nav-link" to={`/`}>
           Home
         </NavLink>
         {username ? (
@@ -14,6 +14,9 @@ const Nav = (props) => {
             Back To User
           </NavLink>
         ) : undefined}
+        <NavLink className="nav-link" to={`/user/${username}/marvel`}>
+          Search Marvel
+        </NavLink>
         {id ? (
           <NavLink className="nav-link" to={`/user/${username}/stack/${id}`}>
             Back To Stack

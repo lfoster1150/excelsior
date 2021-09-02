@@ -14,17 +14,14 @@ const MarvelComicCard = (props) => {
     id,
     comicId,
     onClick,
-    onClickAdd
+    onClickAdd,
+    username
   } = props
-
-  const goToMarvelComicPage = () => {
-    console.log(api_id)
-  }
 
   return (
     <li className="marvel-comic-card">
       <img
-        onClick={goToMarvelComicPage}
+        onClick={onClick}
         src={cover_image || defaultThumb}
         alt={title}
         className="comic-cover"
