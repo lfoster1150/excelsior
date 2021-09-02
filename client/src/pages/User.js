@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { BASE_URL } from '../globals'
 import axios from 'axios'
-import Nav from '../components/Nav'
+import BootNav from '../components/BootNav'
 import TextInput from '../components/TextInput'
 import TextInputWithButton from '../components/TextInputWithButton'
 import StackCard from '../components/StackCard'
+import { Button, Container, Navbar, Nav, Form } from 'react-bootstrap'
 
 const User = (props) => {
   const [userData, setUserData] = useState({})
@@ -99,10 +100,33 @@ const User = (props) => {
 
   return (
     <div className="page">
-      <Nav username={currentUsername} />
+      <BootNav username={currentUsername} />
       <p>Welcome {userData.name}</p>
-      <h2>create a new comic stack below:</h2>
-      <TextInputWithButton
+      <Form className="bootstrap-form-contain" onSubmit={postNewStack}>
+        <Form.Group className="mb-3" controlId="formBasicName">
+          <Form.Label>Create Stack:</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="add new stack"
+            value={stackQuery}
+            onChange={handleChange}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicURL">
+          <Form.Label>Stack Image (optional):</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="image url (optional)"
+            value={thumbnailQuery}
+            onChange={handleThumbChange}
+          />
+        </Form.Group>
+        <Button variant="primary" type="submit" className="submit-button">
+          Submit
+        </Button>
+      </Form>
+
+      {/* <TextInputWithButton
         onSubmit={postNewStack}
         name="Add"
         text="Add"
@@ -114,14 +138,13 @@ const User = (props) => {
         placeholder="thumbnail url (optional)"
         value={thumbnailQuery}
         onChange={handleThumbChange}
-      />
+      /> */}
       <div className="stack-container">
         {stacks.length === 0 ? (
           <h2>NO STACKS</h2>
         ) : (
           stacks.map((stack, index) => (
             <StackCard
-              className="stack-name"
               name={stack.name}
               key={index}
               thumbnail={stack.thumbnail}

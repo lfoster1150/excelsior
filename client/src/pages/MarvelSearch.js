@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { BASE_URL, MARVEL_KEY, PRIVATE_KEY, MARVEL_BASE } from '../globals'
 import axios from 'axios'
-import Nav from '../components/Nav'
+import BootNav from '../components/BootNav'
 import TextInput from '../components/TextInput'
 import TextInputWithButton from '../components/TextInputWithButton'
 import MarvelComicCard from '../components/MarvelComicCard'
@@ -86,7 +86,7 @@ const MarvelSearch = (props) => {
 
   return (
     <div className="page">
-      <Nav username={username} />
+      <BootNav username={username} />
       <h2>Search:</h2>
       <TextInputWithButton
         onSubmit={handleSubmit}

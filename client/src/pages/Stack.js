@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import Nav from '../components/Nav'
+import BootNav from '../components/BootNav'
 import TextInput from '../components/TextInput'
 import TextInputWithButton from '../components/TextInputWithButton'
 import ComicCardInStack from '../components/ComicCardInStack'
 import { BASE_URL } from '../globals'
 import CreatorCard from '../components/CreatorCard'
+import { CardGroup } from 'react-bootstrap'
 
 const Stack = (props) => {
   const [currentStackId, setCurrentStackId] = useState('')
@@ -134,13 +135,17 @@ const Stack = (props) => {
   }
 
   const addCreatorMap = () => {
-    return creatorState.map((creator, index) => (
-      <CreatorCard
-        key={index}
-        string={creator}
-        onClick={(e) => removeCreatorFromState(e, index)}
-      />
-    ))
+    return (
+      <CardGroup>
+        {creatorState.map((creator, index) => (
+          <CreatorCard
+            key={index}
+            string={creator}
+            onClick={(e) => removeCreatorFromState(e, index)}
+          />
+        ))}
+      </CardGroup>
+    )
   }
 
   useEffect(() => {
@@ -160,7 +165,7 @@ const Stack = (props) => {
 
   return (
     <div className="page">
-      <Nav username={username} />
+      <BootNav username={username} />
       <h1>Stack Page</h1>
       <ul className="stack-container">
         {stackComics.length === 0 ? (

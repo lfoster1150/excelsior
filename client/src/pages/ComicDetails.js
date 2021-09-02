@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import Nav from '../components/Nav'
+import BootNav from '../components/BootNav'
 import { BASE_URL } from '../globals'
 import defaultThumb from '../components/images/comics.jpg'
 
@@ -41,7 +41,7 @@ const ComicDetails = (props) => {
 
   return (
     <div className="page">
-      <Nav username={username} id={id} />
+      <BootNav username={username} id={id} />
       <div className="comic-details-container">
         <h2>{comicDetails.title}</h2>
         <img

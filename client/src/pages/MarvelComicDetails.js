@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import Nav from '../components/Nav'
+import BootNav from '../components/BootNav'
 import { MARVEL_KEY, PRIVATE_KEY, MARVEL_BASE } from '../globals'
 const md5 = require('js-md5')
 
@@ -40,7 +40,7 @@ const MarvelComicDetails = (props) => {
 
   return (
     <div className="page">
-      <Nav username={username} search="search" />
+      <BootNav username={username} search="search" />
       {areDetailsLoaded ? (
         <div className="comic-details-container">
           <h2>{comicDetails.title}</h2>
