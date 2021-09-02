@@ -15,7 +15,8 @@ import {
   Form,
   Button,
   Row,
-  Col
+  Col,
+  ListGroup
 } from 'react-bootstrap'
 
 const Stack = (props) => {
@@ -105,8 +106,7 @@ const Stack = (props) => {
   }
   // Handles new changes to creator fields
   const handleCreatorChange = (e) => {
-    console.log(e)
-    setCreatorQuery({ [e.target.name]: e.target.value })
+    setCreatorQuery({ ...creatorQuery, [e.target.name]: e.target.value })
   }
   // deletes comic based on index passed in from onClick
   const deleteComic = async (e, index) => {
@@ -147,7 +147,7 @@ const Stack = (props) => {
 
   const addCreatorMap = () => {
     return (
-      <CardGroup>
+      <ListGroup>
         {creatorState.map((creator, index) => (
           <CreatorCard
             key={index}
@@ -155,7 +155,7 @@ const Stack = (props) => {
             onClick={(e) => removeCreatorFromState(e, index)}
           />
         ))}
-      </CardGroup>
+      </ListGroup>
     )
   }
 
@@ -187,36 +187,85 @@ const Stack = (props) => {
                 className="bootstrap-form-contain"
                 onSubmit={addCreatorToState}
               >
-                <Row fluid>
+                <Row>
                   <Col>
                     <Form.Group className="mb-3" controlId="formBasicName">
                       <Form.Label>Creator role:</Form.Label>
                       <Form.Control
+                        name="job_title"
                         type="text"
                         placeholder="enter role of creator"
                         value={creatorQuery.job_title}
                         onChange={handleCreatorChange}
                       />
                     </Form.Group>
-                  </Col>
-                  <Col>
+
                     <Form.Group className="mb-3" controlId="formBasicURL">
                       <Form.Label>Creator Name:</Form.Label>
                       <Form.Control
+                        name="name"
                         type="text"
-                        placeholder="image url (optional)"
+                        placeholder="enter name of creator"
                         value={creatorQuery.name}
                         onChange={handleCreatorChange}
                       />
                     </Form.Group>
+
+                    <Button
+                      variant="primary"
+                      type="submit"
+                      className="submit-button"
+                    >
+                      Add Creator
+                    </Button>
+                  </Col>
+                  <Col>
+                    <div className="creator-card-container">
+                      {creatorState.length === 0 ? (
+                        <h2>No creators added yet...</h2>
+                      ) : (
+                        addCreatorMap()
+                      )}
+                    </div>
                   </Col>
                 </Row>
+              </Form>
+            </Container>
+            <Container fluid className="add-form-container">
+              <Form onSubmit={postNewComic}>
+                <Form.Group className="mb-3" controlId="formBasicURL">
+                  <Form.Label>New Comic Details:</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="enter comic title"
+                    value={newComicQuery.name}
+                    onChange={handleChange}
+                  />
+                  <Form.Control
+                    as="textarea"
+                    placeholder="enter comic description (optional)"
+                    value={creatorQuery.description}
+                    onChange={handleChange}
+                  />
+                  <Form.Control
+                    type="text"
+                    placeholder="enter release date (optional)"
+                    value={newComicQuery.release_date}
+                    onChange={handleChange}
+                  />
+                  <Form.Control
+                    type="text"
+                    placeholder="enter image url (optional)"
+                    value={newComicQuery.cover_image}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
                 <Button
                   variant="primary"
                   type="submit"
                   className="submit-button"
                 >
-                  Submit
+                  Add Comic to Stack!
                 </Button>
               </Form>
             </Container>

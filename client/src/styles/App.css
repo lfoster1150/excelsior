@@ -235,13 +235,35 @@ body {
   border-top: 1px solid #f48c06;
   color: white;
 }
-.creator-card-container {
+.creator-card-container > .card-group {
   display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 }
 .creator-card {
   display: flex;
-  height: 100px;
+  flex-direction: row;
+  justify-content: space-between;
   background-color: #ffba08;
+  color: #03071e;
+}
+.creator-card > .card-body {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  background-color: #ffba08;
+}
+
+.creator-card > .delete-button {
+  font-weight: bold;
+  color: white;
+  background-color: #d00000;
+  border: 1px solid #03071e;
+}
+.creator-card > .delete-button:hover {
+  background-color: #03071e;
+  border: 1px solid #03071e;
 }
 .add-new-comic {
   display: flex;
@@ -309,7 +331,30 @@ body {
 
 .add-creator-container {
   display: flex;
+  flex-direction: column;
+  width: inherit;
   border: 1px solid #f48c06;
   border-radius: 5px;
   margin: 5px;
+}
+.add-creator-container > .bootstrap-form-contain > .row {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.add-form-container {
+  border: 1px solid #f48c06;
+  border-radius: 5px;
+}
+
+.add-form-container > .mb-3 > .form-label {
+  color: white;
+}
+.mb-3 > .form-control {
+  border-radius: 5px;
+  margin: 2px;
+  color: #03071e;
+}
+.form-control {
+  color: #03071e;
 }

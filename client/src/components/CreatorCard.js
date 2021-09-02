@@ -1,21 +1,14 @@
 import React from 'react'
-import { Button, Card } from 'react-bootstrap'
+import { Button, Card, ListGroup } from 'react-bootstrap'
 
 const CreatorCard = (props) => {
   return (
-    <Card className="creator-card">
-      <Card.Body>
-        <Card.Text>{props.string}</Card.Text>
-        <Button
-          className="delete-button"
-          variant="dark"
-          onClick={props.onClick}
-        >
-          X
-        </Button>
-      </Card.Body>
-    </Card>
-
+    <ListGroup.Item className="creator-card">
+      {props.string}
+      <Button className="delete-button" onClick={props.onClick}>
+        X
+      </Button>
+    </ListGroup.Item>
     // <div className="creator-card" key={props.key}>
     //   <p>{props.string}</p>
     //   <button type="button" onClick={props.onClick}>
