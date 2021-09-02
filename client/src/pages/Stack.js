@@ -13,7 +13,9 @@ import {
   Navbar,
   Container,
   Form,
-  Button
+  Button,
+  Row,
+  Col
 } from 'react-bootstrap'
 
 const Stack = (props) => {
@@ -103,7 +105,8 @@ const Stack = (props) => {
   }
   // Handles new changes to creator fields
   const handleCreatorChange = (e) => {
-    setCreatorQuery({ ...creatorQuery, [e.target.name]: e.target.value })
+    console.log(e)
+    setCreatorQuery({ [e.target.name]: e.target.value })
   }
   // deletes comic based on index passed in from onClick
   const deleteComic = async (e, index) => {
@@ -178,32 +181,57 @@ const Stack = (props) => {
         <Container fluid>
           <Navbar.Brand>Add a new comic...</Navbar.Brand>
           <Navbar.Toggle />
-          <Navbar.Collapse>
+          <Navbar.Collapse fluid>
             <Form
               className="bootstrap-form-contain"
               onSubmit={addCreatorToState}
             >
-              <Form.Group className="mb-3" controlId="formBasicName">
-                <Form.Label>Creator role:</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="'enter role of creator'"
-                  value={creatorQuery.job_title}
-                  onChange={handleCreatorChange}
-                />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicURL">
-                <Form.Label>Creator Name:</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="image url (optional)"
-                  value={creatorQuery.name}
-                  onChange={handleCreatorChange}
-                />
-              </Form.Group>
-              <Button variant="primary" type="submit" className="submit-button">
-                Submit
-              </Button>
+              <Container className="add-creator-container" fluid>
+                <Col>
+                  <Row fluid>
+                    <Col>
+                      <Form.Group className="mb-3" controlId="formBasicName">
+                        <Form.Label>Creator role:</Form.Label>
+                        <Form.Control
+                          type="text"
+                          placeholder="enter role"
+                          value={creatorQuery.job_title}
+                          onChange={handleCreatorChange}
+                        />
+                      </Form.Group>
+                    </Col>
+                    <Col>
+                      <Form.Group className="mb-3" controlId="formBasicURL">
+                        <Form.Label>Creator Name:</Form.Label>
+                        <Form.Control
+                          type="text"
+                          placeholder="enter name"
+                          value={creatorQuery.name}
+                          onChange={handleCreatorChange}
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Button
+                      variant="primary"
+                      type="submit"
+                      className="submit-button"
+                    >
+                      Submit
+                    </Button>
+                  </Row>
+                </Col>
+                <Col>
+                  <div className="creator-card-container">
+                    {creatorState.length === 0 ? (
+                      <h2>No creators added yet...</h2>
+                    ) : (
+                      addCreatorMap()
+                    )}
+                  </div>
+                </Col>
+              </Container>
             </Form>
           </Navbar.Collapse>
         </Container>
@@ -266,7 +294,7 @@ const Stack = (props) => {
             />
             <button>Submit</button>
           </form>
-          <form onSubmit={addCreatorToState} className="add-creator">
+          {/* <form onSubmit={addCreatorToState} className="add-creator">
             <div className="add-creator-inputs">
               <TextInput
                 type="text"
@@ -292,7 +320,7 @@ const Stack = (props) => {
                 addCreatorMap()
               )}
             </div>
-          </form>
+          </form> */}
         </div>
       </div>
     </div>

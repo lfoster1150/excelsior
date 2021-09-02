@@ -169,7 +169,6 @@ body {
   background-color: #03071e;
   color: white;
   font-size: 22px;
-  width: 400px;
   border-radius: 10px;
   margin: 25px 0;
   padding: 10px;
@@ -290,6 +289,8 @@ body {
   border: 1px solid #03071e;
 }
 .add-comic-nav {
+  display: flex;
+  flex-direction: column;
   background-color: #03071e;
   border: 1px groove #03071e;
   border-radius: 5px;
@@ -305,4 +306,10 @@ body {
 }
 .add-comic-nav > .container-fluid > .navbar-toggler:hover {
   background-color: #f48c06;
+}
+
+.add-creator-container {
+  display: flex;
+
+  border: 1px solid #f48c06;
 }
