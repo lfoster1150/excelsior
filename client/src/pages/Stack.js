@@ -41,10 +41,10 @@ const Stack = (props) => {
   }
 
   const getStackComics = async () => {
-    if (currentStackId && currentUsername) {
+    if (id && currentUsername) {
       try {
         const res = await axios.get(
-          `${BASE_URL}/user/${currentUsername}/stack/${currentStackId}/comic`
+          `${BASE_URL}/user/${currentUsername}/stack/${id}/comic`
         )
         setStackComics(res.data.comics)
       } catch (err) {
@@ -76,17 +76,14 @@ const Stack = (props) => {
     e.preventDefault()
     try {
       const res = await axios
-        .post(
-          `${BASE_URL}/user/${currentUsername}/stack/${currentStackId}/comic`,
-          {
-            title: newComicQuery.title,
-            description: newComicQuery.description,
-            release_date: newComicQuery.release_date,
-            cover_image: newComicQuery.cover_image,
-            creators: [...creatorState],
-            stack: currentStackId
-          }
-        )
+        .post(`${BASE_URL}/user/${currentUsername}/stack/${id}/comic`, {
+          title: newComicQuery.title,
+          description: newComicQuery.description,
+          release_date: newComicQuery.release_date,
+          cover_image: newComicQuery.cover_image,
+          creators: [...creatorState],
+          stack: id
+        })
         .then(function (response) {
           console.log(response)
         })
@@ -127,8 +124,10 @@ const Stack = (props) => {
   // handles when comic cover is clicked in stack view
   const handleClickedComic = (e, index) => {
     e.preventDefault()
-    let clickedComicId = stackComics[index]._id
-    getComicDetailsByStackId(clickedComicId)
+    if (!(e.target.type === 'button')) {
+      let clickedComicId = stackComics[index]._id
+      getComicDetailsByStackId(clickedComicId)
+    }
   }
   // Uses ID from click handler to travel to specific comics details page
   const getComicDetailsByStackId = async (id) => {
