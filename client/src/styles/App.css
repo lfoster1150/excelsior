@@ -248,6 +248,29 @@ body {
   display: flex;
   flex-direction: column;
   color: #ffba08;
-  background-color: #03071e;
+  background-color: rgb(3, 7, 30);
   padding: 10px 10px;
+}
+
+.card-in-stack {
+  width: 200px;
+}
+.card-in-stack:hover {
+  cursor: pointer;
+}
+
+.card-img-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(50, 50, 50, 0.75);
+}
+.card-img-overlay > .card-title {
+  background-color: rgba(50, 50, 50, 0.75);
+  background-color: #03071e;
+  color: white;
+  font-size: 18px;
+  padding: 5px;
+  border: 1px solid #f48c06;
+  border-radius: 5px;
 }

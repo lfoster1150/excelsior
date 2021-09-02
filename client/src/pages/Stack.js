@@ -6,7 +6,7 @@ import TextInputWithButton from '../components/TextInputWithButton'
 import ComicCardInStack from '../components/ComicCardInStack'
 import { BASE_URL } from '../globals'
 import CreatorCard from '../components/CreatorCard'
-import { CardGroup } from 'react-bootstrap'
+import { CardGroup, Card } from 'react-bootstrap'
 
 const Stack = (props) => {
   const [currentStackId, setCurrentStackId] = useState('')
@@ -166,7 +166,6 @@ const Stack = (props) => {
   return (
     <div className="page">
       <BootNav username={username} />
-      <h1>Stack Page</h1>
       <ul className="stack-container">
         {stackComics.length === 0 ? (
           <h2>NO COMICS</h2>
