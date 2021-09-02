@@ -23,7 +23,7 @@ const MarvelSearch = (props) => {
       const res = await axios.get(
         `http://gateway.marvel.com/v1/public/comics?title=${searchQuery}&ts=${ts}&apikey=${MARVEL_KEY}&hash=${hash}`
       )
-      console.log(res)
+      console.log(...searchResults, res.data.data.results)
       setSearchResults(...searchResults, res.data.data.results)
     } catch (err) {
       console.log(err)
@@ -75,9 +75,9 @@ const MarvelSearch = (props) => {
     ))
   }
 
-  useEffect(() => {
-    addSearchResultsMap()
-  }, [searchResults])
+  // useEffect(() => {
+  //   addSearchResultsMap()
+  // }, [searchResults])
 
   useEffect(() => {
     // if (currentSearch) {
