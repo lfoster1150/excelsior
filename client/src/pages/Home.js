@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
-import BootNav from '../components/BootNav'
-import TextInput from '../components/TextInput'
-import TextInputWithButton from '../components/TextInputWithButton'
 import { BASE_URL } from '../globals'
-import { Button, Container, Navbar, Form } from 'react-bootstrap'
+import { Button, Form } from 'react-bootstrap'
 
 const Home = (props) => {
   const [usernameQuery, setUsernameQuery] = useState('')
   const [newUsernameQuery, setNewUsernameQuery] = useState('')
   const [newNameQuery, setNewNameQuery] = useState('')
-  const { currentUsername, setCurrentUsername } = props
+  const { setCurrentUsername } = props
 
   const postNewUser = async (e) => {
     e.preventDefault()
@@ -24,6 +21,7 @@ const Home = (props) => {
           console.log(response)
         })
         .catch((error) => {
+          console.log(res)
           console.log(error)
         })
       setUsernameQuery(newUsernameQuery)

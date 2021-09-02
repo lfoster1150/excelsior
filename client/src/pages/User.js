@@ -2,10 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { BASE_URL } from '../globals'
 import axios from 'axios'
 import BootNav from '../components/BootNav'
-import TextInput from '../components/TextInput'
-import TextInputWithButton from '../components/TextInputWithButton'
 import StackCard from '../components/StackCard'
-import { Button, Container, Navbar, Nav, Form } from 'react-bootstrap'
+import { Button, Form } from 'react-bootstrap'
 
 const User = (props) => {
   const [userData, setUserData] = useState({})
@@ -125,20 +123,6 @@ const User = (props) => {
           Submit
         </Button>
       </Form>
-
-      {/* <TextInputWithButton
-        onSubmit={postNewStack}
-        name="Add"
-        text="Add"
-        placeholder="add new stack"
-        value={stackQuery}
-        onChange={handleChange}
-      />
-      <TextInput
-        placeholder="thumbnail url (optional)"
-        value={thumbnailQuery}
-        onChange={handleThumbChange}
-      /> */}
       <div className="stack-container">
         {stacks.length === 0 ? (
           <h2>NO STACKS</h2>
