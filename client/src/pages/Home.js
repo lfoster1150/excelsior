@@ -4,6 +4,7 @@ import Nav from '../components/Nav'
 import TextInput from '../components/TextInput'
 import TextInputWithButton from '../components/TextInputWithButton'
 import { BASE_URL } from '../globals'
+import { Button, Container, Row, Form } from 'react-bootstrap'
 
 const Home = (props) => {
   const [usernameQuery, setUsernameQuery] = useState('')
@@ -32,7 +33,7 @@ const Home = (props) => {
   }
 
   const sendToUserPage = () => {
-    props.history.push(`/user/${currentUsername}`)
+    props.history.push(`/user/${usernameQuery}`)
   }
 
   const getByUsername = async (e) => {
@@ -57,44 +58,44 @@ const Home = (props) => {
   }
   return (
     <div className="page">
-      <div>
-        <div className="existing-user">
-          <h2>Enter your username to see your collections:</h2>
-          <TextInputWithButton
-            onSubmit={getByUsername}
-            name="Submit"
-            text="Submit"
+      <Form className="bootstrap-contain" onSubmit={postNewUser}>
+        <Form.Group className="mb-3" controlId="formBasicName">
+          <Form.Label>Your Name:</Form.Label>
+          <Form.Control
+            type="name"
+            placeholder="Enter name"
+            value={newNameQuery}
+            onChange={handleChangeNewName}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicUsername">
+          <Form.Label>New Username:</Form.Label>
+          <Form.Control
+            type="username"
+            placeholder="enter new username"
+            value={newUsernameQuery}
+            onChange={handleChangeNewUser}
+          />
+        </Form.Group>
+        <Button variant="primary" type="submit" className="submit-button">
+          Submit
+        </Button>
+      </Form>
+
+      <Form className="bootstrap-contain" onSubmit={getByUsername}>
+        <Form.Group className="mb-3" controlId="formBasicUsername">
+          <Form.Label>New Username:</Form.Label>
+          <Form.Control
+            type="username"
             placeholder="enter new username"
             value={usernameQuery}
             onChange={handleChange}
           />
-        </div>
-        <div className="add-new-user">
-          <h2>Enter a username to create an account:</h2>
-          <div className="new-user">
-            <div className="input-text">
-              <p>Your Name: </p>
-              <TextInput
-                placeholder="enter your name"
-                value={newNameQuery}
-                onChange={handleChangeNewName}
-              />
-            </div>
-            <div className="input-text">
-              <p>New Username: </p>
-
-              <TextInputWithButton
-                onSubmit={postNewUser}
-                name="Submit"
-                text="Submit"
-                placeholder="enter new username"
-                value={newUsernameQuery}
-                onChange={handleChangeNewUser}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+        </Form.Group>
+        <Button variant="primary" type="submit" className="submit-button">
+          Submit
+        </Button>
+      </Form>
     </div>
   )
 }
