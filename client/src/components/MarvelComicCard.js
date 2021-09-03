@@ -1,16 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import defaultThumb from './images/comics.jpg'
-import { BASE_URL } from '../globals'
-import axios from 'axios'
-import {
-  Card,
-  Button,
-  Dropdown,
-  DropdownButton,
-  Row,
-  DropdownType,
-  ButtonGroup
-} from 'react-bootstrap'
+import { Card, Button, Dropdown, Row } from 'react-bootstrap'
 
 const MarvelComicCard = (props) => {
   const [showOverlay, setShowOverlay] = useState(false)
@@ -50,7 +40,6 @@ const MarvelComicCard = (props) => {
                 ))}
               </Dropdown.Menu>
             </Dropdown>
-
             <Button className="add-button" onClick={onClickAdd}>
               +
             </Button>
@@ -59,18 +48,6 @@ const MarvelComicCard = (props) => {
       ) : undefined}
     </Card>
   )
-  // <li className="marvel-comic-card">
-  //   <img
-  //     onClick={onClick}
-  //     src={cover_image || defaultThumb}
-  //     alt={title}
-  //     className="comic-cover"
-  //   />
-  //   <h3>{title}</h3>
-  //   <button type="button" onClick={onClickAdd}>
-  //     +
-  //   </button>
-  // </li>
 }
 
 export default MarvelComicCard

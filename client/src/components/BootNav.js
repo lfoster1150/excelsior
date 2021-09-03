@@ -11,11 +11,11 @@ const BootNav = (props) => {
           {username ? (
             <Nav.Link href={`/user/${username}`}>User</Nav.Link>
           ) : undefined}
-          {username ? (
-            <Nav.Link href={`/user/${username}/marvel`}>Search</Nav.Link>
-          ) : undefined}
           {id ? (
             <Nav.Link href={`/user/${username}/stack/${id}`}>Stack</Nav.Link>
+          ) : undefined}
+          {username ? (
+            <Nav.Link href={`/user/${username}/marvel`}>Search</Nav.Link>
           ) : undefined}
         </Nav>
       </Container>

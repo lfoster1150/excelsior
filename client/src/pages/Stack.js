@@ -29,12 +29,9 @@ const Stack = (props) => {
     job_title: ''
   })
   const { currentUsername, setCurrentUsername } = props
-  const { username, id, comic_id } = props.match.params
+  const { username, id } = props.match.params
 
-  const setCurrentStackIdOnMount = () => {
-    setCurrentStackId(props.match.params.id)
-  }
-
+  // Gets all comics in selected stack: on component mount, as well as when a comic is added or deleted
   const getStackComics = async () => {
     if (id && currentUsername) {
       try {
@@ -47,7 +44,7 @@ const Stack = (props) => {
       }
     }
   }
-
+  // On add creator button pressed: adds creator to add comic form
   const addCreatorToState = (e) => {
     e.preventDefault()
     const creatorString = `${creatorQuery.job_title}: ${creatorQuery.name}`
@@ -57,20 +54,18 @@ const Stack = (props) => {
       job_title: ''
     })
   }
-
+  // On creator "x" button pressed: removes creator from form
   const removeCreatorFromState = (e, index) => {
     e.preventDefault()
     let newArray = [...creatorState]
     newArray.splice(index, 1)
     setCreatorState(newArray)
   }
-
   // Handles New Comic Form Submission
-
   const postNewComic = async (e) => {
     e.preventDefault()
     try {
-      const res = await axios
+      await axios
         .post(`${BASE_URL}/user/${currentUsername}/stack/${id}/comic`, {
           title: newComicQuery.title,
           description: newComicQuery.description,
@@ -90,7 +85,6 @@ const Stack = (props) => {
     }
     getStackComics()
   }
-
   // Handles new changes to all new comic inputs except creator fields
   const handleChange = (e) => {
     setNewComicQuery({ ...newComicQuery, [e.target.name]: e.target.value })
@@ -107,8 +101,8 @@ const Stack = (props) => {
       newArray.splice(index, 1)
       setStackComics(newArray)
       try {
-        const res = await axios.delete(
-          `${BASE_URL}/user/${currentUsername}/stack/${currentStackId}/comic/${objectToDelete._id}`
+        await axios.delete(
+          `${BASE_URL}/user/${currentUsername}/stack/${id}/comic/${objectToDelete._id}`
         )
       } catch (error) {
         console.log(error)
@@ -127,17 +121,15 @@ const Stack = (props) => {
   // Uses ID from click handler to travel to specific comics details page
   const getComicDetailsByStackId = async (id) => {
     try {
-      const res = await axios.get(
-        `${BASE_URL}/user/${currentUsername}/stack/${currentStackId}/comic/${id}`
+      await axios.get(
+        `${BASE_URL}/user/${currentUsername}/stack/${id}/comic/${id}`
       )
-      props.history.push(
-        `/user/${currentUsername}/stack/${currentStackId}/comic/${id}`
-      )
+      props.history.push(`/user/${currentUsername}/stack/${id}/comic/${id}`)
     } catch (err) {
       console.log(err)
     }
   }
-
+  // adds creator to container inside add comic form
   const addCreatorMap = () => {
     return (
       <ListGroup>
@@ -151,17 +143,17 @@ const Stack = (props) => {
       </ListGroup>
     )
   }
-
+  // stops stacks from loading until states are loaded in
   useEffect(() => {
     if (currentStackId && currentUsername) {
       getStackComics()
     }
   }, [currentStackId, currentUsername])
-
+  // Adds creator to container when state changes
   useEffect(() => {
     addCreatorMap()
   }, [creatorState])
-
+  // On page mount
   useEffect(() => {
     setCurrentUsername(props.match.params.username)
     setCurrentStackId(props.match.params.id)
@@ -192,7 +184,6 @@ const Stack = (props) => {
                         onChange={handleCreatorChange}
                       />
                     </Form.Group>
-
                     <Form.Group className="mb-3" controlId="formBasicURL">
                       <Form.Label>Creator Name:</Form.Label>
                       <Form.Control
@@ -203,7 +194,6 @@ const Stack = (props) => {
                         onChange={handleCreatorChange}
                       />
                     </Form.Group>
-
                     <Button
                       variant="primary"
                       type="submit"

@@ -9,7 +9,7 @@ const ComicDetails = (props) => {
   const [comicDetails, setComicDetails] = useState({})
   const [creatorArray, setCreatorArray] = useState([])
   const { username, id, comic_id } = props.match.params
-
+  // Gets comic details on page mount
   const getComicDetailsById = async () => {
     try {
       const res = await axios.get(
@@ -21,20 +21,18 @@ const ComicDetails = (props) => {
     }
     setDetailsSet(true)
   }
-
+  // Adds creators to container
   const addDetails = () => {
     return comicDetails.creators.map((creator, index) => (
       <li key={index}>{creator}</li>
     ))
   }
-
   // watches comicDetails
   useEffect(() => {
     if (detailsSet) {
       setCreatorArray(comicDetails.creators)
     }
   }, [detailsSet])
-
   useEffect(() => {
     getComicDetailsById()
   }, [])

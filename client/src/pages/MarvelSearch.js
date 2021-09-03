@@ -2,12 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { BASE_URL, MARVEL_KEY, PRIVATE_KEY, MARVEL_BASE } from '../globals'
 import axios from 'axios'
 import BootNav from '../components/BootNav'
-import TextInput from '../components/TextInput'
-import TextInputWithButton from '../components/TextInputWithButton'
 import MarvelComicCard from '../components/MarvelComicCard'
 import Footer from '../components/Footer'
 import { Button, Form } from 'react-bootstrap'
-import StackCard from '../components/StackCard'
 const md5 = require('js-md5')
 
 const MarvelSearch = (props) => {
@@ -15,6 +12,7 @@ const MarvelSearch = (props) => {
   const [searchResults, setSearchResults] = useState([])
   const [stacks, setStacks] = useState([])
   const [stackNames, setStackNames] = useState([])
+  const [hasSearchFinished, setHasSearchFinished] = useState(false)
   const { username } = props.match.params
   const { currentSearch, setCurrentSearch } = props
 
@@ -22,14 +20,12 @@ const MarvelSearch = (props) => {
     const namesArr = stacks.map((stack) => {
       return stack.name
     })
-    console.log(namesArr)
     setStackNames(namesArr)
   }
 
   const getStacksByUsername = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/user/${username}/stack`)
-      console.log(res)
       const resStacks = res.data.stacks
       setStacks(resStacks)
       getStackNames()
@@ -38,15 +34,21 @@ const MarvelSearch = (props) => {
     }
   }
 
+  const handleSetSearchResults = (results) => {
+    setSearchResults(results)
+    setHasSearchFinished(true)
+  }
+
   const searchComics = async () => {
-    setCurrentSearch(searchQuery)
     let ts = Date.now()
     let hash = md5(`${ts}${PRIVATE_KEY}${MARVEL_KEY}`)
     try {
       const res = await axios.get(
-        `http://gateway.marvel.com/v1/public/comics?title=${searchQuery}&ts=${ts}&apikey=${MARVEL_KEY}&hash=${hash}`
+        `${MARVEL_BASE}/comics?title=${searchQuery}&ts=${ts}&apikey=${MARVEL_KEY}&hash=${hash}`
       )
+      console.log(res.data.data.results)
       setSearchResults(...searchResults, res.data.data.results)
+      setHasSearchFinished(true)
     } catch (err) {
       console.log(err)
     }
@@ -87,31 +89,34 @@ const MarvelSearch = (props) => {
   const addComic = () => {}
 
   const addSearchResultsMap = () => {
-    return searchResults.map((comic, index) => (
-      <MarvelComicCard
-        className="comic-card marvel"
-        stacks={stacks}
-        stackNames={stackNames}
-        key={index}
-        creators={comic.creators.items}
-        title={comic.title}
-        description={comic.description}
-        release_date={comic.dates[0]}
-        cover_image={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
-        thumbnail={comic.thumbnail}
-        api="Marvel"
-        api_id={comic.id}
-        username={username}
-        onSelect={handleSelect}
-        onClick={(e) => handleClickedComic(e, index)}
-        onClickAdd={(e) => addComic(e, index)}
-      />
-    ))
+    if (hasSearchFinished) {
+      return searchResults.map((comic, index) => (
+        <MarvelComicCard
+          className="comic-card marvel"
+          stacks={stacks}
+          stackNames={stackNames}
+          key={index}
+          creators={comic.creators.items}
+          title={comic.title}
+          description={comic.description}
+          release_date={comic.dates[0]}
+          cover_image={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
+          thumbnail={comic.thumbnail}
+          api="Marvel"
+          api_id={comic.id}
+          username={username}
+          onSelect={handleSelect}
+          onClick={(e) => handleClickedComic(e, index)}
+          onClickAdd={(e) => addComic(e, index)}
+        />
+      ))
+    }
   }
 
   // useEffect(() => {
-  //   addSearchResultsMap()
+  //   console.log(searchResults)
   // }, [searchResults])
+
   useEffect(() => {
     getStacksByUsername()
   }, [])
