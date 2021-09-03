@@ -1,9 +1,17 @@
 import React, { useState } from 'react'
 import defaultThumb from './images/comics.jpg'
-import { Card, Button } from 'react-bootstrap'
+import {
+  Card,
+  Button,
+  Dropdown,
+  DropdownButton,
+  Row,
+  DropdownType,
+  ButtonGroup
+} from 'react-bootstrap'
 
 const MarvelComicCard = (props) => {
-  const [showOverlay, setShowOverlay] = useState(false)
+  const [showOverlay, setShowOverlay] = useState(true)
   const { title, cover_image, onClick, onClickAdd } = props
 
   return (
@@ -21,9 +29,20 @@ const MarvelComicCard = (props) => {
       {showOverlay ? (
         <Card.ImgOverlay>
           <Card.Title>{title}</Card.Title>
-          <Button className="delete-button" variant="dark" onClick={onClickAdd}>
-            X
-          </Button>
+          <Row className="overlay-dropdown">
+            <Dropdown>
+              <Dropdown.Toggle id="dropdown-basic">Stack</Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+
+            <Button className="add-button" onClick={onClickAdd}>
+              +
+            </Button>
+          </Row>
         </Card.ImgOverlay>
       ) : undefined}
     </Card>

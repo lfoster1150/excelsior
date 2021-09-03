@@ -49,8 +49,10 @@ const MarvelSearch = (props) => {
   }
   const handleClickedComic = (e, index) => {
     e.preventDefault()
-    let clickedComicId = searchResults[index].id
-    goToMarvelComicPage(clickedComicId)
+    if (!(e.target.type === 'button')) {
+      let clickedComicId = searchResults[index].id
+      goToMarvelComicPage(clickedComicId)
+    }
   }
 
   const addComic = () => {}
@@ -79,13 +81,6 @@ const MarvelSearch = (props) => {
   //   addSearchResultsMap()
   // }, [searchResults])
 
-  useEffect(() => {
-    // if (currentSearch) {
-    //   setSearchQuery(currentSearch)
-    //   searchComics()
-    // }
-  }, [])
-
   return (
     <div className="page">
       <BootNav username={username} />
@@ -103,7 +98,6 @@ const MarvelSearch = (props) => {
           Submit
         </Button>
       </Form>
-
       <div className="search-results-container">
         {searchResults.length === 0 ? (
           <h2>NO COMICS</h2>
