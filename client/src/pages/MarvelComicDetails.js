@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import BootNav from '../components/BootNav'
 import { MARVEL_KEY, PRIVATE_KEY, MARVEL_BASE } from '../globals'
+import Footer from '../components/Footer'
 const md5 = require('js-md5')
 
 const MarvelComicDetails = (props) => {
@@ -9,6 +10,7 @@ const MarvelComicDetails = (props) => {
   const [comicDetails, setComicDetails] = useState({})
   const [creatorArray, setCreatorArray] = useState([])
   const { username, api_id } = props.match.params
+  const defaultMarvelLink = 'http://marvel.com'
 
   const getComicDetailsById = async () => {
     let ts = Date.now()
@@ -63,8 +65,20 @@ const MarvelComicDetails = (props) => {
           <p className="comic-description">
             Description: {comicDetails.description}
           </p>
+          <a
+            className="marvel-link"
+            href={comicDetails.urls[0].url || defaultMarvelLink}
+          >
+            See More At Marvel...
+          </a>
         </div>
       ) : undefined}
+      <div className="spacer">
+        <br />
+        <br />
+        <br />
+      </div>
+      <Footer />
     </div>
   )
 }

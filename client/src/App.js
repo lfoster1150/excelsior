@@ -78,8 +78,6 @@ function App() {
           )}
         />
       </Switch>
-      \<div className="spacer"></div>
-      <Footer />
     </div>
   )
 }

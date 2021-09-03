@@ -5,6 +5,7 @@ import BootNav from '../components/BootNav'
 import TextInput from '../components/TextInput'
 import TextInputWithButton from '../components/TextInputWithButton'
 import MarvelComicCard from '../components/MarvelComicCard'
+import Footer from '../components/Footer'
 import { Button, Form } from 'react-bootstrap'
 import StackCard from '../components/StackCard'
 const md5 = require('js-md5')
@@ -139,6 +140,12 @@ const MarvelSearch = (props) => {
           addSearchResultsMap()
         )}
       </div>
+      <div className="spacer">
+        <br />
+        <br />
+        <br />
+      </div>
+      <Footer />
     </div>
   )
 }

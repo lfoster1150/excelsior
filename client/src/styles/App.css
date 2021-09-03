@@ -19,16 +19,16 @@ body {
   flex-direction: column;
   bottom: 0;
   padding: 0;
-  width: 100%;
-}
-.footer > p {
+  margin: 0;
   background-color: #03071e;
   color: #ffba08;
-  padding: 0;
+  width: 100%;
 }
 
 .spacer {
-  height: 25px;
+  border-color: #6a040f;
+  height: 500px;
+  width: 100%;
 }
 .nav-link {
   margin: 0 20px;
@@ -444,4 +444,17 @@ body {
 }
 .form-control {
   color: #03071e;
+}
+
+.marvel-link {
+  text-decoration: none;
+  color: #ffba08;
+}
+.marvel-link:visited {
+  text-decoration: none;
+  color: #ffba08;
+}
+.marvel-link:hover {
+  text-decoration: none;
+  color: #e85d04;
 }
