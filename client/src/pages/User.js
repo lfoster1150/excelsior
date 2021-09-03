@@ -99,7 +99,6 @@ const User = (props) => {
   return (
     <div className="page">
       <BootNav username={currentUsername} />
-      <p>Welcome {userData.name}</p>
       <Form className="bootstrap-form-contain" onSubmit={postNewStack}>
         <Form.Group className="mb-3" controlId="formBasicName">
           <Form.Label>Create Stack:</Form.Label>

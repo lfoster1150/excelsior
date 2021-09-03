@@ -6,7 +6,7 @@ const BootNav = (props) => {
   return (
     <Navbar variant="dark" className="nav-bar">
       <Container>
-        <Navbar.Brand href={`/`}>Excelsior</Navbar.Brand>
+        <Navbar.Brand href={`/`}>Excelsior!</Navbar.Brand>
         <Nav className="me-auto">
           {username ? (
             <Nav.Link href={`/user/${username}`}>User</Nav.Link>
