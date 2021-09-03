@@ -1,5 +1,6 @@
 const { User, Stack, Comic } = require('../models/index')
 
+// From Home page: Creates new user
 const postUser = async (req, res) => {
   try {
     const newUser = await User.create(req.body)
@@ -12,6 +13,7 @@ const postUser = async (req, res) => {
   }
 }
 
+// From Home page: Gets User page based on existing username
 const getByUsername = async (req, res) => {
   try {
     const { username } = req.params
@@ -27,6 +29,7 @@ const getByUsername = async (req, res) => {
   }
 }
 
+// From Home page: creates new stack
 const postStack = async (req, res) => {
   console.log(req.body)
   try {
@@ -40,6 +43,7 @@ const postStack = async (req, res) => {
   }
 }
 
+// From User page: gets existing stacks from associated user id
 const GetStacksByUserId = async (req, res) => {
   try {
     const { username } = req.params
@@ -56,6 +60,7 @@ const GetStacksByUserId = async (req, res) => {
   }
 }
 
+// From User page: Deletes Stack
 const deleteStackById = async (req, res) => {
   try {
     const { id } = req.params
@@ -69,6 +74,7 @@ const deleteStackById = async (req, res) => {
   }
 }
 
+// From User page: Gets specific stack from Stack _id
 const getStackById = async (req, res) => {
   try {
     const { id } = req.params
@@ -82,6 +88,7 @@ const getStackById = async (req, res) => {
   }
 }
 
+// From Stack page: Adds comic to current Stack _id
 const postComicByStackId = async (req, res) => {
   console.log(req.body)
   try {
@@ -95,6 +102,7 @@ const postComicByStackId = async (req, res) => {
   }
 }
 
+// From Stack page: Gets all comics associated with current Stack _id
 const getComicsByStackId = async (req, res) => {
   try {
     const { id } = req.params
@@ -108,6 +116,8 @@ const getComicsByStackId = async (req, res) => {
     return res.status(500).send(error.message)
   }
 }
+
+// From Stack page: Gets comic details for a specific Comic _id
 const getComicDetailsById = async (req, res) => {
   try {
     const { comic_id } = req.params
@@ -122,6 +132,7 @@ const getComicDetailsById = async (req, res) => {
   }
 }
 
+// From Stack page: Deletes comic from DB based on specific Comic _id
 const deleteComicById = async (req, res) => {
   console.log(req.params)
   try {

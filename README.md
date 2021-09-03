@@ -10,7 +10,7 @@
 
 ### **_Description_**
 
-A web app to track all your must read comics. The project was created in four days as part of the General Assembly SEI program in order to test and showcase skills using the MERN (Mongoose/Express/React/Node) stack. Many Bootstrap components were used to clean up UI elements. Additionally, the Marvel API was used to add a comic search function.
+A web app to track all your must-read comics. The project was created in four days as part of the General Assembly SEI program to test and showcase skills using the MERN (Mongoose/Express/React/Node) stack. Many Bootstrap components were used to clean up UI elements. Additionally, the Marvel API was used to add a comic search function.
 
 ### **_Technologies Used_**
 
@@ -27,8 +27,8 @@ The project is deployed on Heroku and can be viewed [here]().
 
 1. The first page allows you to login to an existing username or create a new one.
 2. Once logged in you can start creating comic stacks. These are essentially collections of your must-read comics.
-3. Navigating to one of your created stacks allows you to create new comics, or view the ones you've already created.
-4. Finally, by clicking one of these comics you can view it's details, or delete it when you're finished reading.
+3. Navigating to one of your created stacks allows you to create new comics or view the ones you've already created.
+4. Finally, by clicking one of these comics you can view its details or delete it when you're finished reading.
 5. Bonus: In the nav bar there's a link to a search page. This search uses Marvel's API to search their extensive database for comics. Give it a try!
 
 The Trello board currently being used to plan and this project and track development can be viewed [here](https://trello.com/b/3az5mgUC/excelsior).

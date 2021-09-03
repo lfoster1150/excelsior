@@ -1,5 +1,6 @@
 const { Comic } = require('../models/index')
 
+// Creates comic in stack from marvel API
 const postMarvelComicByStackId = async (req, res) => {
   console.log(req.body)
   try {
