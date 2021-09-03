@@ -12,8 +12,30 @@ const md5 = require('js-md5')
 const MarvelSearch = (props) => {
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState([])
+  const [stacks, setStacks] = useState([])
+  const [stackNames, setStackNames] = useState([])
   const { username } = props.match.params
   const { currentSearch, setCurrentSearch } = props
+
+  const getStackNames = () => {
+    const namesArr = stacks.map((stack) => {
+      return stack.name
+    })
+    console.log(namesArr)
+    setStackNames(namesArr)
+  }
+
+  const getStacksByUsername = async () => {
+    try {
+      const res = await axios.get(`${BASE_URL}/user/${username}/stack`)
+      console.log(res)
+      const resStacks = res.data.stacks
+      setStacks(resStacks)
+      getStackNames()
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   const searchComics = async () => {
     setCurrentSearch(searchQuery)
@@ -35,6 +57,11 @@ const MarvelSearch = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     searchComics()
+  }
+
+  const handleSelect = (e) => {
+    const index = parseFloat(e)
+    console.log(stackNames[index])
   }
 
   const goToMarvelComicPage = (id) => {
@@ -62,6 +89,8 @@ const MarvelSearch = (props) => {
     return searchResults.map((comic, index) => (
       <MarvelComicCard
         className="comic-card marvel"
+        stacks={stacks}
+        stackNames={stackNames}
         key={index}
         creators={comic.creators.items}
         title={comic.title}
@@ -72,6 +101,7 @@ const MarvelSearch = (props) => {
         api="Marvel"
         api_id={comic.id}
         username={username}
+        onSelect={handleSelect}
         onClick={(e) => handleClickedComic(e, index)}
         onClickAdd={(e) => addComic(e, index)}
       />
@@ -81,6 +111,9 @@ const MarvelSearch = (props) => {
   // useEffect(() => {
   //   addSearchResultsMap()
   // }, [searchResults])
+  useEffect(() => {
+    getStacksByUsername()
+  }, [])
 
   return (
     <div className="page">
