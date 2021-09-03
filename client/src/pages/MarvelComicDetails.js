@@ -26,7 +26,6 @@ const MarvelComicDetails = (props) => {
   }
 
   const addDetails = () => {
-    console.log(comicDetails.dates)
     return creatorArray.map((creator, index) => (
       <li key={index}>
         {creator.role}: {creator.name}

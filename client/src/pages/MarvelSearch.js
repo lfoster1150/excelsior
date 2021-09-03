@@ -23,7 +23,6 @@ const MarvelSearch = (props) => {
       const res = await axios.get(
         `http://gateway.marvel.com/v1/public/comics?title=${searchQuery}&ts=${ts}&apikey=${MARVEL_KEY}&hash=${hash}`
       )
-      console.log(...searchResults, res.data.data.results)
       setSearchResults(...searchResults, res.data.data.results)
     } catch (err) {
       console.log(err)
@@ -39,7 +38,6 @@ const MarvelSearch = (props) => {
   }
 
   const goToMarvelComicPage = (id) => {
-    console.log(id)
     try {
       // const res = await axios.get(`${BASE_URL}/user/${currentUsername}/marvel/`)
       props.history.push(`/user/${username}/marvel/${id}`)
@@ -49,7 +47,10 @@ const MarvelSearch = (props) => {
   }
   const handleClickedComic = (e, index) => {
     e.preventDefault()
-    if (!(e.target.type === 'button')) {
+    if (
+      !(e.target.type === 'button') &&
+      !(e.target.className === 'dropdown-item')
+    ) {
       let clickedComicId = searchResults[index].id
       goToMarvelComicPage(clickedComicId)
     }

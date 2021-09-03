@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import defaultThumb from './images/comics.jpg'
+import { BASE_URL } from '../globals'
+import axios from 'axios'
 import {
   Card,
   Button,
@@ -11,8 +13,29 @@ import {
 } from 'react-bootstrap'
 
 const MarvelComicCard = (props) => {
-  const [showOverlay, setShowOverlay] = useState(true)
+  const [showOverlay, setShowOverlay] = useState(false)
+  const [stacks, setStacks] = useState([])
   const { title, cover_image, onClick, onClickAdd } = props
+  const { username } = props.history.params
+
+  const getStacksUsername = async () => {
+    try {
+      const res = await axios.get(`${BASE_URL}/user/${username}`)
+      console.log(res.data)
+      const newUserData = res.data.user[0]
+      // setUserData(newUserData)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const handleSelect = (e) => {
+    console.log(e)
+  }
+
+  useEffect(() => {
+    getStacksUsername()
+  }, [])
 
   return (
     <Card
@@ -30,12 +53,13 @@ const MarvelComicCard = (props) => {
         <Card.ImgOverlay>
           <Card.Title>{title}</Card.Title>
           <Row className="overlay-dropdown">
-            <Dropdown>
+            <Dropdown onSelect={handleSelect}>
               <Dropdown.Toggle id="dropdown-basic">Stack</Dropdown.Toggle>
               <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                {}
+                <Dropdown.Item eventKey="1">Action</Dropdown.Item>
+                <Dropdown.Item eventKey="2">Another action</Dropdown.Item>
+                <Dropdown.Item eventKey="3">Something else</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
 
