@@ -56,8 +56,7 @@ const Home = (props) => {
   }
   return (
     <div className="page ">
-      <header>
-        <h4>Welcome to...</h4>
+      <header className="header-home">
         <h1>Excelsior!</h1>
       </header>
       <div className="home-page">

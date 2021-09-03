@@ -227,7 +227,9 @@ const Stack = (props) => {
             <Container fluid className="add-form-container">
               <Form onSubmit={postNewComic}>
                 <Form.Group className="mb-3" controlId="formBasicURL">
-                  <Form.Label>New Comic Details:</Form.Label>
+                  <Form.Label className="details-label">
+                    New Comic Details:
+                  </Form.Label>
                   <Form.Control
                     name="title"
                     type="text"
