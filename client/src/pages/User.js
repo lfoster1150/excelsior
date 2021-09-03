@@ -12,6 +12,7 @@ const User = (props) => {
   const [thumbnailQuery, setThumbnailQuery] = useState('')
   const { currentUsername, setCurrentUsername } = props
 
+  // On page mount: gets data for current user based on username
   const getDataByUsername = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/user/${currentUsername}`)
@@ -21,6 +22,8 @@ const User = (props) => {
       console.log(err)
     }
   }
+
+  // On page mount and after new stack is created: gets data for current user based on username
   const getExistingStacks = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/user/${currentUsername}/stack`)
@@ -30,10 +33,11 @@ const User = (props) => {
     }
   }
 
+  // Submit button onSubmit: adds new stack
   const postNewStack = async (e) => {
     e.preventDefault()
     try {
-      const res = await axios
+      await axios
         .post(`${BASE_URL}/user/${currentUsername}/stack`, {
           name: stackQuery,
           thumbnail: thumbnailQuery,
@@ -50,12 +54,14 @@ const User = (props) => {
     }
     getExistingStacks()
   }
+  // The two below handle form inputs onChange
   const handleChange = (event) => {
     setStackQuery(event.target.value)
   }
   const handleThumbChange = (event) => {
     setThumbnailQuery(event.target.value)
   }
+  // onClick "X" button: deletes stack locally and in DB based on Stack _id
   const deleteStack = async (e, index) => {
     if (e.target.type === 'button') {
       let newArray = [...stacks]
@@ -63,7 +69,7 @@ const User = (props) => {
       newArray.splice(index, 1)
       setStacks(newArray)
       try {
-        const res = await axios.delete(
+        await axios.delete(
           `${BASE_URL}/user/${currentUsername}/stack/${objectToDelete._id}`
         )
       } catch (error) {
@@ -71,25 +77,23 @@ const User = (props) => {
       }
     }
   }
-
+  // Gets and travels to specific stack page based on Stack _id
   const getByStackId = async (id) => {
     try {
-      const res = await axios.get(
-        `${BASE_URL}/user/${currentUsername}/stack/${id}`
-      )
+      await axios.get(`${BASE_URL}/user/${currentUsername}/stack/${id}`)
       props.history.push(`/user/${currentUsername}/stack/${id}`)
     } catch (err) {
       console.log(err)
     }
   }
-
+  // If onClick event is not "X" button upplies getByStackId with stack _id based on index
   const handleClickedStack = (e, index) => {
     if (!(e.target.type === 'button')) {
       let clickedStackId = stacks[index]._id
       getByStackId(clickedStackId)
     }
   }
-
+  // Sets up data on User page mount
   useEffect(() => {
     setCurrentUsername(props.match.params.username)
     getDataByUsername()

@@ -7,7 +7,6 @@ import ComicDetails from './pages/ComicDetails'
 import MarvelComicDetails from './pages/MarvelComicDetails'
 import { Route, Switch } from 'react-router-dom'
 import MarvelSearch from './pages/MarvelSearch'
-import Footer from './components/Footer'
 
 function App() {
   const [currentUsername, setCurrentUsername] = useState('')

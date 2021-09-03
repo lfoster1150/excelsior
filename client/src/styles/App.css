@@ -331,6 +331,10 @@ body {
 .card-in-stack:hover {
   cursor: pointer;
 }
+.card-img-top:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
 
 .card-img-overlay {
   display: flex;

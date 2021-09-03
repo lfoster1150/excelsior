@@ -9,10 +9,11 @@ const Home = (props) => {
   const [newNameQuery, setNewNameQuery] = useState('')
   const { setCurrentUsername } = props
 
+  // submit button onClick: adds new user to DB
   const postNewUser = async (e) => {
     e.preventDefault()
     try {
-      const res = await axios
+      await axios
         .post(`${BASE_URL}/user`, {
           username: newUsernameQuery,
           name: newNameQuery
@@ -21,7 +22,6 @@ const Home = (props) => {
           console.log(response)
         })
         .catch((error) => {
-          console.log(res)
           console.log(error)
         })
       setUsernameQuery(newUsernameQuery)
@@ -30,21 +30,24 @@ const Home = (props) => {
     }
   }
 
+  // from getByUsername: travels to user page based on entered username
   const sendToUserPage = () => {
     props.history.push(`/user/${usernameQuery}`)
   }
 
+  // enter button onClick: handles axios call based on entered username
   const getByUsername = async (e) => {
     e.preventDefault()
     try {
       setCurrentUsername(usernameQuery)
-      const res = await axios.get(`${BASE_URL}/user/${usernameQuery}`)
+      await axios.get(`${BASE_URL}/user/${usernameQuery}`)
       sendToUserPage()
     } catch (err) {
       console.log(err)
     }
   }
 
+  // the three following functions handle input fields onChange
   const handleChange = (event) => {
     setUsernameQuery(event.target.value)
   }
@@ -72,7 +75,7 @@ const Home = (props) => {
               />
             </Form.Group>
             <Button variant="primary" type="submit" className="submit-button">
-              Submit
+              Enter
             </Button>
           </Form>
         </div>
