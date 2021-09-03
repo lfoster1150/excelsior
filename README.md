@@ -1,6 +1,6 @@
 # Excelsior
 
-## Date: 08/30/2021
+## Date: 09/03/2021
 
 ### By: Luke Foster
 
@@ -23,7 +23,7 @@ A web app to track all your must-read comics. The project was created in four da
 
 ### **_Getting Started_**
 
-The project is deployed on Heroku and can be viewed [here]().
+The project is deployed on Heroku and can be viewed [here](https://safe-brushlands-20870.herokuapp.com/).
 
 1. The first page allows you to login to an existing username or create a new one.
 2. Once logged in you can start creating comic stacks. These are essentially collections of your must-read comics.
@@ -31,23 +31,23 @@ The project is deployed on Heroku and can be viewed [here]().
 4. Finally, by clicking one of these comics you can view its details or delete it when you're finished reading.
 5. Bonus: In the nav bar there's a link to a search page. This search uses Marvel's API to search their extensive database for comics. Give it a try!
 
-The Trello board currently being used to plan and this project and track development can be viewed [here](https://trello.com/b/3az5mgUC/excelsior).
+The Trello board that was used to plan and this project and track development can be viewed [here](https://trello.com/b/3az5mgUC/excelsior).
 
 ---
 
 ### **_Screen Shots_**
 
-##### Home Page
+#### User Home Page
 
-![Home Page]()
+![User Page](/client/public/ss3.png)
 
-##### User Page
+#### Stack Page
 
-![User Page]()
+![Stack Page](/client/public/ss2.png)
 
-##### Search Page
+#### Search Page using Marvel's API
 
-![Search Page]()
+![Search Page](/client/public/ss1.png)
 
 ### **_Future Updates_**
 
