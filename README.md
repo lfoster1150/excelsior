@@ -63,6 +63,6 @@ The Trello board currently being used to plan and this project and track develop
 
 ##### Pictures: [Unsplash - Comics ](https://unsplash.com/s/photos/comics)
 
-##### CSS: [Color Pallete](https://coolors.co/03071e-370617-6a040f-9d0208-d00000-dc2f02-e85d04-f48c06-faa307-ffba08)
+##### CSS: [Color Pallete](https://coolors.co/03071e-370617-6a040f-9d0208-d00000-dc2f02-e85d04-f48c06-faa307-ffba08) | [Font](https://fonts.google.com/specimen/Patua+One?sort=popularity&preview.text=Excelsior!&preview.text_type=custom&category=Display#standard-styles)
 
 ##### Bootstrap: [Docs](https://react-bootstrap.github.io/getting-started/introduction/) | [Helped with hovering effect for overlays](https://upmostly.com/tutorials/react-onhover-event-handling-with-examples)
