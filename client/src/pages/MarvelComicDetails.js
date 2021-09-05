@@ -12,6 +12,7 @@ const MarvelComicDetails = (props) => {
   const { username, api_id } = props.match.params
   const defaultMarvelLink = 'http://marvel.com'
 
+  // Gets details on page mount
   const getComicDetailsById = async () => {
     let ts = Date.now()
     let hash = md5(`${ts}${PRIVATE_KEY}${MARVEL_KEY}`)
@@ -27,6 +28,7 @@ const MarvelComicDetails = (props) => {
     }
   }
 
+  // Adds creator names and roles if creator array present in axios result
   const addDetails = () => {
     return creatorArray.map((creator, index) => (
       <li key={index}>

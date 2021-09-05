@@ -53,7 +53,7 @@ The Trello board that was used to plan and this project and track development ca
 
 - [x] Integrate Marvel API - Search
 - [ ] Add UPDATE method
-- [ ] Future Update 2 - Characters Page
+- [ ] Integrate Marvel API - Characters Page
 - [ ] Integrate Marvel API - Creators Page
 - [ ] Integrate Marvel API - Series Page
 

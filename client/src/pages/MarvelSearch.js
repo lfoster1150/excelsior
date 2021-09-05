@@ -15,14 +15,14 @@ const MarvelSearch = (props) => {
   const [hasSearchFinished, setHasSearchFinished] = useState(false)
   const { username } = props.match.params
   const { currentSearch, setCurrentSearch } = props
-
+  // Gets names of stacks after stacks gathered to feed into dropdown menus on overlay
   const getStackNames = () => {
     const namesArr = stacks.map((stack) => {
       return stack.name
     })
     setStackNames(namesArr)
   }
-
+  // Gets current stacks based on username
   const getStacksByUsername = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/user/${username}/stack`)
@@ -33,12 +33,7 @@ const MarvelSearch = (props) => {
       console.log(err)
     }
   }
-
-  const handleSetSearchResults = (results) => {
-    setSearchResults(results)
-    setHasSearchFinished(true)
-  }
-
+  // Uses marvel API to search comics
   const searchComics = async () => {
     let ts = Date.now()
     let hash = md5(`${ts}${PRIVATE_KEY}${MARVEL_KEY}`)
@@ -46,27 +41,23 @@ const MarvelSearch = (props) => {
       const res = await axios.get(
         `${MARVEL_BASE}/comics?title=${searchQuery}&ts=${ts}&apikey=${MARVEL_KEY}&hash=${hash}`
       )
-      console.log(res.data.data.results)
       setSearchResults(...searchResults, res.data.data.results)
+      setCurrentSearch(searchQuery)
       setHasSearchFinished(true)
     } catch (err) {
       console.log(err)
     }
   }
+  // Handles search input field onChange
   const handleChange = (e) => {
     setSearchQuery(e.target.value)
   }
-
+  // Handles submit search query
   const handleSubmit = (e) => {
     e.preventDefault()
     searchComics()
   }
-
-  const handleSelect = (e) => {
-    const index = parseFloat(e)
-    console.log(stackNames[index])
-  }
-
+  // handles switch to detail page. Still not sure if I need the axios call
   const goToMarvelComicPage = (id) => {
     try {
       // const res = await axios.get(`${BASE_URL}/user/${currentUsername}/marvel/`)
@@ -75,6 +66,7 @@ const MarvelSearch = (props) => {
       console.log(err)
     }
   }
+  // Handles clicking on Marvel comic card
   const handleClickedComic = (e, index) => {
     e.preventDefault()
     if (
@@ -85,9 +77,9 @@ const MarvelSearch = (props) => {
       goToMarvelComicPage(clickedComicId)
     }
   }
-
+  // Adds comic to selected stack
   const addComic = () => {}
-
+  // Adds search result cards to page if axios search comes back with results array
   const addSearchResultsMap = () => {
     if (hasSearchFinished) {
       return searchResults.map((comic, index) => (
@@ -105,7 +97,6 @@ const MarvelSearch = (props) => {
           api="Marvel"
           api_id={comic.id}
           username={username}
-          onSelect={handleSelect}
           onClick={(e) => handleClickedComic(e, index)}
           onClickAdd={(e) => addComic(e, index)}
         />
@@ -113,12 +104,12 @@ const MarvelSearch = (props) => {
     }
   }
 
-  // useEffect(() => {
-  //   console.log(searchResults)
-  // }, [searchResults])
-
   useEffect(() => {
     getStacksByUsername()
+    if (currentSearch) {
+      setSearchQuery(currentSearch)
+      searchComics()
+    }
   }, [])
 
   return (
