@@ -11,24 +11,25 @@ const MarvelSearch = (props) => {
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState([])
   const [stacks, setStacks] = useState([])
+  const [areStacksLoaded, setAreStacksLoaded] = useState(false)
   const [stackNames, setStackNames] = useState([])
   const [hasSearchFinished, setHasSearchFinished] = useState(false)
+  const [currentStack, setCurrentStack] = useState('')
   const { username } = props.match.params
   const { currentSearch, setCurrentSearch } = props
   // Gets names of stacks after stacks gathered to feed into dropdown menus on overlay
-  const getStackNames = () => {
-    const namesArr = stacks.map((stack) => {
+  const getStackNames = (arr) => {
+    return arr.map((stack) => {
       return stack.name
     })
-    setStackNames(namesArr)
   }
   // Gets current stacks based on username
   const getStacksByUsername = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/user/${username}/stack`)
       const resStacks = res.data.stacks
-      setStacks(resStacks)
-      getStackNames()
+      setStacks(...stacks, resStacks)
+      setAreStacksLoaded(true)
     } catch (err) {
       console.log(err)
     }
@@ -77,17 +78,25 @@ const MarvelSearch = (props) => {
       goToMarvelComicPage(clickedComicId)
     }
   }
-  // Adds comic to selected stack
-  const addComic = () => {}
+  // // Selects list to add comic to
+  // const selectStack = (e) => {
+  //   console.log('Stack')
+  //   console.log(e)
+  // }
+  // // Adds comic to selected stack
+  // const addComic = (e) => {
+  //   console.log("Add")
+  //   console.log(e)
+  // }
   // Adds search result cards to page if axios search comes back with results array
   const addSearchResultsMap = () => {
     if (hasSearchFinished) {
       return searchResults.map((comic, index) => (
         <MarvelComicCard
+          key={index}
           className="comic-card marvel"
           stacks={stacks}
           stackNames={stackNames}
-          key={index}
           creators={comic.creators.items}
           title={comic.title}
           description={comic.description}
@@ -98,11 +107,18 @@ const MarvelSearch = (props) => {
           api_id={comic.id}
           username={username}
           onClick={(e) => handleClickedComic(e, index)}
-          onClickAdd={(e) => addComic(e, index)}
+          currentStack
+          setCurrentStack={setCurrentStack}
         />
       ))
     }
   }
+
+  useEffect(() => {
+    if (areStacksLoaded) {
+      setStackNames(getStackNames(stacks))
+    }
+  }, [areStacksLoaded])
 
   useEffect(() => {
     getStacksByUsername()
@@ -129,6 +145,7 @@ const MarvelSearch = (props) => {
           Submit
         </Button>
       </Form>
+
       <div className="search-results-container">
         {searchResults.length === 0 ? (
           <h2>NO COMICS</h2>

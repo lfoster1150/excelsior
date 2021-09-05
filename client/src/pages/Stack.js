@@ -162,7 +162,7 @@ const Stack = (props) => {
   return (
     <div className="page">
       <BootNav username={username} />
-      <Navbar className="add-comic-nav" expand="lg">
+      <Navbar className="add-comic-nav" expand={false}>
         <Container fluid>
           <Navbar.Brand>Add a new comic...</Navbar.Brand>
           <Navbar.Toggle />

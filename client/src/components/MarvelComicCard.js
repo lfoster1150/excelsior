@@ -8,12 +8,22 @@ const MarvelComicCard = (props) => {
     title,
     cover_image,
     onClick,
-    onClickAdd,
     stacks,
     stackNames,
-    onSelect
+    currentStack,
+    setCurrentStack
   } = props
 
+  // Selects list to add comic to
+  const selectStack = (e) => {
+    console.log('Stack')
+    console.log(e)
+    setCurrentStack(e)
+  }
+  // Adds comic to selected stack
+  const addComic = (e) => {
+    console.log('Add')
+  }
   return (
     <Card
       className="card-in-stack"
@@ -30,17 +40,17 @@ const MarvelComicCard = (props) => {
         <Card.ImgOverlay>
           <Card.Title>{title}</Card.Title>
           <Row className="overlay-dropdown">
-            <Dropdown onSelect={onSelect}>
+            <Dropdown onSelect={selectStack}>
               <Dropdown.Toggle id="dropdown-basic">Stack</Dropdown.Toggle>
               <Dropdown.Menu>
                 {stacks.map((stack, index) => (
-                  <Dropdown.Item eventKey={stackNames[index]}>
+                  <Dropdown.Item key={index} eventKey={stackNames[index]}>
                     {stack.name}
                   </Dropdown.Item>
                 ))}
               </Dropdown.Menu>
             </Dropdown>
-            <Button className="add-button" onClick={onClickAdd}>
+            <Button className="add-button" onClick={addComic}>
               +
             </Button>
           </Row>

@@ -419,7 +419,7 @@ body {
   background-color: #03071e;
   border: 1px groove #03071e;
   border-radius: 5px;
-  align-self: flex-start;
+  align-self: center;
   margin: 10px;
 }
 .add-comic-nav > .container-fluid > .navbar-brand {
