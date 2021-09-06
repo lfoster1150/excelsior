@@ -9,7 +9,7 @@ const Comic = new Schema(
     cover_image: { type: String },
     thumbnail: { type: String },
     api: { type: String },
-    api_id: { type: Number },
+    api_id: { type: String },
     stack: { type: Schema.Types.ObjectId, ref: 'stacks' }
   },
   { timestamps: true }

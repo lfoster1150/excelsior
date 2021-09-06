@@ -4,7 +4,7 @@ import axios from 'axios'
 import BootNav from '../components/BootNav'
 import MarvelComicCard from '../components/MarvelComicCard'
 import Footer from '../components/Footer'
-import { Button, Form } from 'react-bootstrap'
+import { Button, Form, Dropdown } from 'react-bootstrap'
 const md5 = require('js-md5')
 
 const MarvelSearch = (props) => {
@@ -14,7 +14,10 @@ const MarvelSearch = (props) => {
   const [areStacksLoaded, setAreStacksLoaded] = useState(false)
   const [stackNames, setStackNames] = useState([])
   const [hasSearchFinished, setHasSearchFinished] = useState(false)
-  const [currentStack, setCurrentStack] = useState('')
+  const [currentStack, setCurrentStack] = useState({
+    name: 'Select Stack',
+    stack_id: null
+  })
   const { username } = props.match.params
   const { currentSearch, setCurrentSearch } = props
   // Gets names of stacks after stacks gathered to feed into dropdown menus on overlay
@@ -79,21 +82,53 @@ const MarvelSearch = (props) => {
     }
   }
   // // Selects list to add comic to
-  // const selectStack = (e) => {
-  //   console.log('Stack')
-  //   console.log(e)
-  // }
-  // // Adds comic to selected stack
-  // const addComic = (e) => {
-  //   console.log("Add")
-  //   console.log(e)
-  // }
+  const selectStack = (e) => {
+    setCurrentStack({ name: stacks[e].name, stack_id: stacks[e]._id })
+  }
+  // Adds comic if stack selected
+  const addComicToStack = async (comic) => {
+    if (currentStack.stack_id) {
+      try {
+        await axios
+          .post(
+            `${BASE_URL}/user/${username}/stack/${currentStack.stack_id}/comic`,
+            {
+              title: comic.title,
+              description: comic.desription,
+              cover_image: `${comic.thumbnail.path}.${comic.thumbnail.extension}`,
+              api: 'Marvel',
+              api_id: comic.id,
+              stack: currentStack.stack_id
+            }
+          )
+          .then(function (response) {
+            console.log(response)
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+      } catch (err) {
+        console.log(err)
+      }
+    } else {
+      console.log('Must select a stack before adding comic.')
+    }
+  }
+
+  // Gets added comic api_id
+  const addComic = (e, index) => {
+    if (e.target.type === 'button') {
+      let clickedAddComic = searchResults[index]
+      addComicToStack(clickedAddComic)
+    }
+  }
   // Adds search result cards to page if axios search comes back with results array
   const addSearchResultsMap = () => {
     if (hasSearchFinished) {
       return searchResults.map((comic, index) => (
         <MarvelComicCard
           key={index}
+          resultIndex={index}
           className="comic-card marvel"
           stacks={stacks}
           stackNames={stackNames}
@@ -107,8 +142,7 @@ const MarvelSearch = (props) => {
           api_id={comic.id}
           username={username}
           onClick={(e) => handleClickedComic(e, index)}
-          currentStack
-          setCurrentStack={setCurrentStack}
+          onClickAdd={(e) => addComic(e, index)}
         />
       ))
     }
@@ -145,7 +179,22 @@ const MarvelSearch = (props) => {
           Submit
         </Button>
       </Form>
-
+      <div className="search-page-dropdown">
+        <Dropdown className="stack-selector" onSelect={selectStack}>
+          <Dropdown.Toggle id="dropdown-basic">
+            {currentStack.name}
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            {stacks.length === 0
+              ? undefined
+              : stacks.map((stack, index) => (
+                  <Dropdown.Item key={index} eventKey={index}>
+                    {stack.name}
+                  </Dropdown.Item>
+                ))}
+          </Dropdown.Menu>
+        </Dropdown>
+      </div>
       <div className="search-results-container">
         {searchResults.length === 0 ? (
           <h2>NO COMICS</h2>
