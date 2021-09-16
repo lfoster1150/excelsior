@@ -1,12 +1,26 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { BASE_URL } from '../globals'
 import { Button, Form } from 'react-bootstrap'
+import { connect } from 'react-redux'
+import { GetHomeQuery, SetHomeQuery } from '../store/actions/HomeActions'
+
+const mapStateToProps = ({ homeState }) => {
+  return { homeState }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getQuery: () => dispatch(GetHomeQuery()),
+    setQuery: (query) => dispatch(SetHomeQuery(query))
+  }
+}
 
 const Home = (props) => {
-  const [usernameQuery, setUsernameQuery] = useState('')
-  const [newUsernameQuery, setNewUsernameQuery] = useState('')
-  const [newNameQuery, setNewNameQuery] = useState('')
+  // const [usernameQuery, setUsernameQuery] = useState('')
+  // const [newUsernameQuery, setNewUsernameQuery] = useState('')
+  // const [newNameQuery, setNewNameQuery] = useState('')
+
   const { setCurrentUsername } = props
 
   // submit button onClick: adds new user to DB
@@ -15,8 +29,8 @@ const Home = (props) => {
     try {
       await axios
         .post(`${BASE_URL}/user`, {
-          username: newUsernameQuery,
-          name: newNameQuery
+          username: props.homeState.query.newUsername,
+          name: props.homeState.query.newName
         })
         .then(function (response) {
           console.log(response)
@@ -24,7 +38,10 @@ const Home = (props) => {
         .catch((error) => {
           console.log(error)
         })
-      setUsernameQuery(newUsernameQuery)
+      props.setQuery({
+        [props.props.homeState.query.username]:
+          props.homeState.query.newUsername
+      })
     } catch (err) {
       console.log(err)
     }
@@ -32,15 +49,15 @@ const Home = (props) => {
 
   // from getByUsername: travels to user page based on entered username
   const sendToUserPage = () => {
-    props.history.push(`/user/${usernameQuery}`)
+    props.history.push(`/user/${props.homeState.query.username}`)
   }
 
   // enter button onClick: handles axios call based on entered username
   const getByUsername = async (e) => {
     e.preventDefault()
     try {
-      setCurrentUsername(usernameQuery)
-      await axios.get(`${BASE_URL}/user/${usernameQuery}`)
+      setCurrentUsername(props.homeState.query.username)
+      await axios.get(`${BASE_URL}/user/${props.homeState.query.username}`)
       sendToUserPage()
     } catch (err) {
       console.log(err)
@@ -48,15 +65,21 @@ const Home = (props) => {
   }
 
   // the three following functions handle input fields onChange
-  const handleChange = (event) => {
-    setUsernameQuery(event.target.value)
+  const handleChange = (e) => {
+    props.setQuery({
+      ...props.homeState.query,
+      [e.target.name]: e.target.value
+    })
   }
-  const handleChangeNewUser = (event) => {
-    setNewUsernameQuery(event.target.value)
-  }
-  const handleChangeNewName = (event) => {
-    setNewNameQuery(event.target.value)
-  }
+  // const handleChange = (event) => {
+  //   setUsernameQuery(event.target.value)
+  // }
+  // const handleChangeNewUser = (event) => {
+  //   setNewUsernameQuery(event.target.value)
+  // }
+  // const handleChangeNewName = (event) => {
+  //   setNewNameQuery(event.target.value)
+  // }
   return (
     <div className="page ">
       <header className="header-home">
@@ -69,8 +92,9 @@ const Home = (props) => {
               <Form.Label>Existing User:</Form.Label>
               <Form.Control
                 type="username"
+                name="username"
                 placeholder="enter username"
-                value={usernameQuery}
+                value={props.homeState.query.username}
                 onChange={handleChange}
               />
             </Form.Group>
@@ -85,18 +109,20 @@ const Home = (props) => {
               <Form.Label>Your Name:</Form.Label>
               <Form.Control
                 type="name"
+                name="newName"
                 placeholder="Enter name"
-                value={newNameQuery}
-                onChange={handleChangeNewName}
+                value={props.homeState.query.newName}
+                onChange={handleChange}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicUsername">
               <Form.Label>Your Username:</Form.Label>
               <Form.Control
                 type="username"
+                name="newUsername"
                 placeholder="enter new username"
-                value={newUsernameQuery}
-                onChange={handleChangeNewUser}
+                value={props.homeState.query.newUsername}
+                onChange={handleChange}
               />
             </Form.Group>
             <Button variant="primary" type="submit" className="submit-button">
@@ -108,4 +134,4 @@ const Home = (props) => {
     </div>
   )
 }
-export default Home
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

@@ -1,0 +1,2 @@
+export const GET_HOME_QUERY = 'GET_HOME_QUERY'
+export const SET_HOME_QUERY = 'SET_HOME_QUERY'
