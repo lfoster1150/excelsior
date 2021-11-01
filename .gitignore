@@ -2,4 +2,7 @@ node_modules/
 **lock
 .env
 package-lock.json
-client/scr/.env
+client/.env
+
+.env*
+*.env
