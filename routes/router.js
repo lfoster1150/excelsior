@@ -36,12 +36,12 @@ router.post('/auth/register', authControllers.Register)
 //   middleware.verifyToken,
 //   authControllers.UpdatePassword
 // )
-// router.get(
-//   '/auth/session',
-//   middleware.stripToken,
-//   middleware.verifyToken,
-//   authControllers.CheckSession
-// )
+router.get(
+  '/auth/session',
+  middleware.stripToken,
+  middleware.verifyToken,
+  authControllers.CheckSession
+)
 
 // routers for Marvel Api
 router.post(
