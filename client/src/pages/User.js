@@ -10,7 +10,7 @@ const User = (props) => {
   const [stacks, setStacks] = useState([])
   const [stackQuery, setStackQuery] = useState('')
   const [thumbnailQuery, setThumbnailQuery] = useState('')
-  const { currentUsername, setCurrentUsername, user } = props
+  const { user, authenticated, handleLogOut } = props
 
   // On page mount: gets data for current user based on username
   const getDataByUsername = async () => {
@@ -25,7 +25,6 @@ const User = (props) => {
 
   // On page mount and after new stack is created: gets data for current user based on username
   const getExistingStacks = async () => {
-    console.log(user)
     try {
       const res = await axios.get(`${BASE_URL}/user/${user.username}/stack`)
       setStacks(res.data.stacks)
@@ -102,7 +101,7 @@ const User = (props) => {
 
   return (
     <div className="page">
-      <BootNav username={user.username} />
+      <BootNav authenticated={authenticated} user={user} handleLogOut={handleLogOut} />
       <Form className="bootstrap-form-contain" onSubmit={postNewStack}>
         <Form.Group className="mb-3" controlId="formBasicName">
           <Form.Label>Create Stack:</Form.Label>

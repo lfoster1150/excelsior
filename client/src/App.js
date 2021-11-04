@@ -105,7 +105,7 @@ function App() {
             user={user}
             path="/user/:username"
             component={(props) => (
-              <User {...props} authenticated={authenticated} user={user} />
+              <User {...props} authenticated={authenticated} handleLogOut={handleLogOut} user={user} />
             )}
           />
         )}

@@ -24,7 +24,6 @@ const Home = (props) => {
     e.preventDefault()
     const payload = await SignInUser(existingFormValues)
     setExistingFormValues({ username: '', password: '' })
-    console.log(payload)
     setUser(payload)
     toggleAuthenticated(true)
     sendToUserPage()
