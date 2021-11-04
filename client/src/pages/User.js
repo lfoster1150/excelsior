@@ -25,6 +25,7 @@ const User = (props) => {
 
   // On page mount and after new stack is created: gets data for current user based on username
   const getExistingStacks = async () => {
+    console.log(user)
     try {
       const res = await axios.get(`${BASE_URL}/user/${user.username}/stack`)
       setStacks(res.data.stacks)
@@ -101,7 +102,7 @@ const User = (props) => {
 
   return (
     <div className="page">
-      <BootNav username={currentUsername} />
+      <BootNav username={user.username} />
       <Form className="bootstrap-form-contain" onSubmit={postNewStack}>
         <Form.Group className="mb-3" controlId="formBasicName">
           <Form.Label>Create Stack:</Form.Label>
