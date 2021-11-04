@@ -10,12 +10,12 @@ const User = (props) => {
   const [stacks, setStacks] = useState([])
   const [stackQuery, setStackQuery] = useState('')
   const [thumbnailQuery, setThumbnailQuery] = useState('')
-  const { currentUsername, setCurrentUsername } = props
+  const { currentUsername, setCurrentUsername, user } = props
 
   // On page mount: gets data for current user based on username
   const getDataByUsername = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/user/${currentUsername}`)
+      const res = await axios.get(`${BASE_URL}/user/${user.username}`)
       const newUserData = res.data.user[0]
       setUserData(newUserData)
     } catch (err) {
@@ -26,7 +26,7 @@ const User = (props) => {
   // On page mount and after new stack is created: gets data for current user based on username
   const getExistingStacks = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/user/${currentUsername}/stack`)
+      const res = await axios.get(`${BASE_URL}/user/${user.username}/stack`)
       setStacks(res.data.stacks)
     } catch (err) {
       console.log(err)
@@ -38,7 +38,7 @@ const User = (props) => {
     e.preventDefault()
     try {
       await axios
-        .post(`${BASE_URL}/user/${currentUsername}/stack`, {
+        .post(`${BASE_URL}/user/${user.username}/stack`, {
           name: stackQuery,
           thumbnail: thumbnailQuery,
           user: userData._id
@@ -70,7 +70,7 @@ const User = (props) => {
       setStacks(newArray)
       try {
         await axios.delete(
-          `${BASE_URL}/user/${currentUsername}/stack/${objectToDelete._id}`
+          `${BASE_URL}/user/${user.username}/stack/${objectToDelete._id}`
         )
       } catch (error) {
         console.log(error)
@@ -80,8 +80,8 @@ const User = (props) => {
   // Gets and travels to specific stack page based on Stack _id
   const getByStackId = async (id) => {
     try {
-      await axios.get(`${BASE_URL}/user/${currentUsername}/stack/${id}`)
-      props.history.push(`/user/${currentUsername}/stack/${id}`)
+      await axios.get(`${BASE_URL}/user/${user.username}/stack/${id}`)
+      props.history.push(`/user/${user.username}/stack/${id}`)
     } catch (err) {
       console.log(err)
     }
@@ -95,7 +95,6 @@ const User = (props) => {
   }
   // Sets up data on User page mount
   useEffect(() => {
-    setCurrentUsername(props.match.params.username)
     getDataByUsername()
     getExistingStacks()
   }, [])

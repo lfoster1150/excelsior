@@ -1,17 +1,10 @@
 import React, { useState } from 'react'
-import axios from 'axios'
-import { BASE_URL } from '../globals'
 import { Button, Form } from 'react-bootstrap'
 import { SignInUser, RegisterUser } from '../services/Auth'
 
 const Home = (props) => {
   const [newFormValues, setNewFormValues] = useState({ username: '', name: '', password: '' })
   const [existingFormValues, setExistingFormValues] = useState({ username: '', password: '' })
-
-
-  const [usernameQuery, setUsernameQuery] = useState('')
-  const [newUsernameQuery, setNewUsernameQuery] = useState('')
-  const [newNameQuery, setNewNameQuery] = useState('')
   const { setUser, toggleAuthenticated } = props
 
   // submit button onClick: adds new user to DB

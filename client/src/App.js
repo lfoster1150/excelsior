@@ -5,6 +5,7 @@ import User from './pages/User'
 import Stack from './pages/Stack'
 import ComicDetails from './pages/ComicDetails'
 import MarvelComicDetails from './pages/MarvelComicDetails'
+import ProtectedRoute from './components/ProtectedRoute'
 import { CheckSession } from './services/Auth'
 import { Route, Switch } from 'react-router-dom'
 import MarvelSearch from './pages/MarvelSearch'
@@ -98,16 +99,16 @@ function App() {
             />
           )}
         />
-        <Route
-          path="/user/:username"
-          component={(props) => (
-            <User
-              {...props}
-              currentUsername={currentUsername}
-              setCurrentUsername={setCurrentUsername}
-            />
-          )}
-        />
+        {user && authenticated && (
+          <ProtectedRoute
+            authenticated={authenticated}
+            user={user}
+            path="/user/:username"
+            component={(props) => (
+              <User {...props} authenticated={authenticated} user={user} />
+            )}
+          />
+        )}
       </Switch>
     </div>
   )
