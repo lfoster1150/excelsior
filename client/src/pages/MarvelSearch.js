@@ -18,8 +18,7 @@ const MarvelSearch = (props) => {
     name: 'Select Stack',
     stack_id: null
   })
-  const { username } = props.match.params
-  const { currentSearch, setCurrentSearch } = props
+  const { currentSearch, setCurrentSearch, user, authenticated, handleLogOut } = props
   // Gets names of stacks after stacks gathered to feed into dropdown menus on overlay
   const getStackNames = (arr) => {
     return arr.map((stack) => {
@@ -29,7 +28,7 @@ const MarvelSearch = (props) => {
   // Gets current stacks based on username
   const getStacksByUsername = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/user/${username}/stack`)
+      const res = await axios.get(`${BASE_URL}/user/${user.username}/stack`)
       const resStacks = res.data.stacks
       setStacks(...stacks, resStacks)
       setAreStacksLoaded(true)
@@ -65,7 +64,7 @@ const MarvelSearch = (props) => {
   const goToMarvelComicPage = (id) => {
     try {
       // const res = await axios.get(`${BASE_URL}/user/${currentUsername}/marvel/`)
-      props.history.push(`/user/${username}/marvel/${id}`)
+      props.history.push(`/user/${user.username}/marvel/${id}`)
     } catch (err) {
       console.log(err)
     }
@@ -91,7 +90,7 @@ const MarvelSearch = (props) => {
       try {
         await axios
           .post(
-            `${BASE_URL}/user/${username}/stack/${currentStack.stack_id}/comic`,
+            `${BASE_URL}/user/${user.username}/stack/${currentStack.stack_id}/comic`,
             {
               title: comic.title,
               description: comic.desription,
@@ -140,7 +139,7 @@ const MarvelSearch = (props) => {
           thumbnail={comic.thumbnail}
           api="Marvel"
           api_id={comic.id}
-          username={username}
+          username={user.username}
           onClick={(e) => handleClickedComic(e, index)}
           onClickAdd={(e) => addComic(e, index)}
         />
@@ -164,7 +163,7 @@ const MarvelSearch = (props) => {
 
   return (
     <div className="page">
-      <BootNav username={username} />
+      <BootNav authenticated={authenticated} user={user} handleLogOut={handleLogOut} />
       <Form className="bootstrap-form-contain" onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicURL">
           <Form.Label>Search:</Form.Label>

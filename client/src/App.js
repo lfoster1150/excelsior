@@ -88,17 +88,23 @@ function App() {
             />
           )}
         />
-        <Route
-          path="/user/:username/marvel"
-          component={(props) => (
-            <MarvelSearch
-              {...props}
-              currentUsername={currentUsername}
-              currentSearch={currentSearch}
-              setCurrentSearch={setCurrentSearch}
-            />
-          )}
-        />
+        {user && authenticated && (
+          <ProtectedRoute
+            authenticated={authenticated}
+            user={user}
+            path="/marvel"
+            component={(props) => (
+              <MarvelSearch
+                {...props} 
+                authenticated={authenticated} 
+                user={user}
+                handleLogOut={handleLogOut}
+                currentSearch={currentSearch}
+                setCurrentSearch={setCurrentSearch}
+              />
+            )}
+          />
+        )}
         {user && authenticated && (
           <ProtectedRoute
             authenticated={authenticated}

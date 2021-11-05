@@ -102,29 +102,32 @@ const User = (props) => {
   return (
     <div className="page">
       <BootNav authenticated={authenticated} user={user} handleLogOut={handleLogOut} />
-      <Form className="bootstrap-form-contain" onSubmit={postNewStack}>
-        <Form.Group className="mb-3" controlId="formBasicName">
-          <Form.Label>Create Stack:</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="add new stack"
-            value={stackQuery}
-            onChange={handleChange}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicURL">
-          <Form.Label>Stack Image (optional):</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="image url (optional)"
-            value={thumbnailQuery}
-            onChange={handleThumbChange}
-          />
-        </Form.Group>
-        <Button variant="primary" type="submit" className="submit-button">
-          Submit
-        </Button>
-      </Form>
+      { props.match.params.username === user.username ? (
+        <Form className="bootstrap-form-contain" onSubmit={postNewStack}>
+          <Form.Group className="mb-3" controlId="formBasicName">
+            <Form.Label>Create Stack:</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="add new stack"
+              value={stackQuery}
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicURL">
+            <Form.Label>Stack Image (optional):</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="image url (optional)"
+              value={thumbnailQuery}
+              onChange={handleThumbChange}
+            />
+          </Form.Group>
+          <Button variant="primary" type="submit" className="submit-button">
+            Submit
+          </Button>
+        </Form>
+      ) : undefined
+      }
       <div className="stack-container">
         {stacks.length === 0 ? (
           <h2>NO STACKS</h2>

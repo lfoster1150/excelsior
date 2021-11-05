@@ -5,7 +5,7 @@ import { SignInUser, RegisterUser } from '../services/Auth'
 const Home = (props) => {
   const [newFormValues, setNewFormValues] = useState({ username: '', name: '', password: '' })
   const [existingFormValues, setExistingFormValues] = useState({ username: '', password: '' })
-  const { setUser, toggleAuthenticated, handleLogOut, user, authenticated } = props
+  const { setUser, toggleAuthenticated, user, authenticated } = props
 
   // submit button onClick: adds new user to DB
   const postNewUser = async (e) => {
@@ -38,6 +38,7 @@ const Home = (props) => {
   }
 
   useEffect(() => {
+    setNewFormValues({ username: '', name: '', password: '' })
     if (user && authenticated) {
       props.history.push(`/user/${user.username}`)
     }

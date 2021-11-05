@@ -8,14 +8,14 @@ const BootNav = (props) => {
       <Container>
         <Navbar.Brand href={`/`}>Excelsior!</Navbar.Brand>
         <Nav className="me-auto">
-          {user.username ? (
+          {user ? (
             <Nav.Link href={`/user/${user.username}`}>User</Nav.Link>
           ) : undefined}
           {id ? (
             <Nav.Link href={`/user/${user.username}/stack/${id}`}>Stack</Nav.Link>
           ) : undefined}
-          {user.username ? (
-            <Nav.Link href={`/user/${user.username}/marvel`}>Search</Nav.Link>
+          {user && authenticated ? (
+            <Nav.Link href={`/marvel`}>Search</Nav.Link>
           ) : undefined}
         </Nav>
       </Container>
