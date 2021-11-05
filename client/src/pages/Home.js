@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Form } from 'react-bootstrap'
 import { SignInUser, RegisterUser } from '../services/Auth'
 
 const Home = (props) => {
   const [newFormValues, setNewFormValues] = useState({ username: '', name: '', password: '' })
   const [existingFormValues, setExistingFormValues] = useState({ username: '', password: '' })
-  const { setUser, toggleAuthenticated } = props
+  const { setUser, toggleAuthenticated, handleLogOut, user, authenticated } = props
 
   // submit button onClick: adds new user to DB
   const postNewUser = async (e) => {
@@ -36,6 +36,12 @@ const Home = (props) => {
   const handleExistingChange = (e) => {
     setExistingFormValues({ ...existingFormValues, [e.target.name]: e.target.value })
   }
+
+  useEffect(() => {
+    if (user && authenticated) {
+      props.history.push(`/user/${user.username}`)
+    }
+  }, [])
 
   return (
     <div className="page ">

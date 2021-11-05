@@ -19,6 +19,13 @@ const BootNav = (props) => {
           ) : undefined}
         </Nav>
       </Container>
+      <Container className="sign-out">
+        <Nav >
+          {user && authenticated ? (
+            <Nav.Link href={`/`} onClick={handleLogOut}>Sign Out</Nav.Link>
+          ) : undefined}
+        </Nav>
+      </Container>
     </Navbar>
   )
 }

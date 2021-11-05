@@ -499,3 +499,8 @@ body {
   text-decoration: none;
   color: #e85d04;
 }
+
+div.sign-out.container {
+  display: flex;
+  justify-content: flex-end
+}
