@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import defaultThumb from './images/comics.jpg'
-import { Card, Button, Dropdown, Row } from 'react-bootstrap'
+import { Card, Button, Row } from 'react-bootstrap'
 
 const MarvelComicCard = (props) => {
   const [showOverlay, setShowOverlay] = useState(false)
-  const { title, cover_image, onClick, onClickAdd } = props
+  const { onClick, onClickAdd, comic } = props
 
   return (
     <Card
@@ -14,13 +14,16 @@ const MarvelComicCard = (props) => {
       onMouseLeave={() => setShowOverlay(false)}
     >
       <Card.Img
-        src={cover_image || defaultThumb}
-        alt={title}
+        src={
+          `${comic.thumbnail.path}.${comic.thumbnail.extension}`|| 
+            defaultThumb
+        }
+        alt={comic.title}
         onClick={onClick}
       />
       {showOverlay ? (
         <Card.ImgOverlay>
-          <Card.Title>{title}</Card.Title>
+          <Card.Title>{comic.title}</Card.Title>
           <Row className="overlay-dropdown">
             <Button className="add-button" onClick={onClickAdd}>
               +

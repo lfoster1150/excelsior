@@ -9,16 +9,15 @@ const md5 = require('js-md5')
 
 const MarvelSearch = (props) => {
   const [searchQuery, setSearchQuery] = useState('')
-  const [searchResults, setSearchResults] = useState([])
+  // const [searchResults, setSearchResults] = useState([])
   const [stacks, setStacks] = useState([])
   const [areStacksLoaded, setAreStacksLoaded] = useState(false)
   const [stackNames, setStackNames] = useState([])
-  const [hasSearchFinished, setHasSearchFinished] = useState(false)
   const [currentStack, setCurrentStack] = useState({
     name: 'Select Stack',
     stack_id: null
   })
-  const { currentSearch, setCurrentSearch, user, authenticated, handleLogOut } = props
+  const { currentSearch, setCurrentSearch, user, authenticated, handleLogOut, searchResults, setSearchResults } = props
   // Gets names of stacks after stacks gathered to feed into dropdown menus on overlay
   const getStackNames = (arr) => {
     return arr.map((stack) => {
@@ -30,26 +29,27 @@ const MarvelSearch = (props) => {
     try {
       const res = await axios.get(`${BASE_URL}/user/${user.username}/stack`)
       const resStacks = res.data.stacks
-      setStacks(...stacks, resStacks)
+      setStacks(() => resStacks)
       setAreStacksLoaded(true)
     } catch (err) {
       console.log(err)
     }
   }
   // Uses marvel API to search comics
-  const searchComics = async () => {
+  const searchComics = async (title) => {
     let ts = Date.now()
     let hash = md5(`${ts}${PRIVATE_KEY}${MARVEL_KEY}`)
+    let resResults = []
     try {
       const res = await axios.get(
-        `${MARVEL_BASE}/comics?title=${searchQuery}&ts=${ts}&apikey=${MARVEL_KEY}&hash=${hash}`
+        `${MARVEL_BASE}/comics?title=${title}&ts=${ts}&apikey=${MARVEL_KEY}&hash=${hash}`
       )
-      setSearchResults(...searchResults, res.data.data.results)
-      setCurrentSearch(searchQuery)
-      setHasSearchFinished(true)
+      resResults = res.data.data.results
     } catch (err) {
       console.log(err)
     }
+    setSearchResults(resResults)
+    setCurrentSearch(searchQuery)
   }
   // Handles search input field onChange
   const handleChange = (e) => {
@@ -58,7 +58,7 @@ const MarvelSearch = (props) => {
   // Handles submit search query
   const handleSubmit = (e) => {
     e.preventDefault()
-    searchComics()
+    searchComics(searchQuery)
   }
   // handles switch to detail page. Still not sure if I need the axios call
   const goToMarvelComicPage = (id) => {
@@ -123,23 +123,14 @@ const MarvelSearch = (props) => {
   }
   // Adds search result cards to page if axios search comes back with results array
   const addSearchResultsMap = () => {
-    if (hasSearchFinished) {
+    if (searchResults.length > 0) {
       return searchResults.map((comic, index) => (
         <MarvelComicCard
-          key={index}
-          resultIndex={index}
           className="comic-card marvel"
-          stacks={stacks}
-          stackNames={stackNames}
-          creators={comic.creators.items}
-          title={comic.title}
-          description={comic.description}
-          release_date={comic.dates[0]}
-          cover_image={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
+          key={index}
+          comic={comic}
           thumbnail={comic.thumbnail}
           api="Marvel"
-          api_id={comic.id}
-          username={user.username}
           onClick={(e) => handleClickedComic(e, index)}
           onClickAdd={(e) => addComic(e, index)}
         />
@@ -147,20 +138,23 @@ const MarvelSearch = (props) => {
     }
   }
 
+  
   useEffect(() => {
     if (areStacksLoaded) {
       setStackNames(getStackNames(stacks))
     }
+    
   }, [areStacksLoaded])
 
   useEffect(() => {
     getStacksByUsername()
-    if (currentSearch) {
-      setSearchQuery(currentSearch)
-      searchComics()
-    }
-  }, [])
-
+    // if (currentSearch) {
+      //   setSearchQuery(currentSearch)
+      //   searchComics(currentSearch)
+      //   console.log("?????")
+      // }
+    }, [])
+  
   return (
     <div className="page">
       <BootNav authenticated={authenticated} user={user} handleLogOut={handleLogOut} />

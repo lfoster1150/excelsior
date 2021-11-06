@@ -16,6 +16,7 @@ function App() {
   const [currentSearch, setCurrentSearch] = useState('')
   const [authenticated, toggleAuthenticated] = useState(false)
   const [user, setUser] = useState(null)
+  const [searchResults, setSearchResults] = useState([])
 
   const checkToken = async () => {
     //If a token exists, sends token to localstorage to persist logged in user
@@ -101,6 +102,9 @@ function App() {
                 handleLogOut={handleLogOut}
                 currentSearch={currentSearch}
                 setCurrentSearch={setCurrentSearch}
+                searchResults={searchResults}
+                setSearchResults={setSearchResults}
+                
               />
             )}
           />
