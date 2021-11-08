@@ -104,7 +104,6 @@ function App() {
                 setCurrentSearch={setCurrentSearch}
                 searchResults={searchResults}
                 setSearchResults={setSearchResults}
-                
               />
             )}
           />

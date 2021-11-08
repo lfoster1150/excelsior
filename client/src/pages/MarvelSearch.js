@@ -9,28 +9,26 @@ const md5 = require('js-md5')
 
 const MarvelSearch = (props) => {
   const [searchQuery, setSearchQuery] = useState('')
-  // const [searchResults, setSearchResults] = useState([])
   const [stacks, setStacks] = useState([])
-  const [areStacksLoaded, setAreStacksLoaded] = useState(false)
-  const [stackNames, setStackNames] = useState([])
   const [currentStack, setCurrentStack] = useState({
     name: 'Select Stack',
     stack_id: null
   })
-  const { currentSearch, setCurrentSearch, user, authenticated, handleLogOut, searchResults, setSearchResults } = props
-  // Gets names of stacks after stacks gathered to feed into dropdown menus on overlay
-  const getStackNames = (arr) => {
-    return arr.map((stack) => {
-      return stack.name
-    })
-  }
+  const { 
+    currentSearch, 
+    setCurrentSearch, 
+    user, 
+    authenticated, 
+    handleLogOut, 
+    searchResults, 
+    setSearchResults 
+  } = props
   // Gets current stacks based on username
   const getStacksByUsername = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/user/${user.username}/stack`)
       const resStacks = res.data.stacks
-      setStacks(() => resStacks)
-      setAreStacksLoaded(true)
+      setStacks(resStacks)
     } catch (err) {
       console.log(err)
     }
@@ -39,17 +37,16 @@ const MarvelSearch = (props) => {
   const searchComics = async (title) => {
     let ts = Date.now()
     let hash = md5(`${ts}${PRIVATE_KEY}${MARVEL_KEY}`)
-    let resResults = []
     try {
       const res = await axios.get(
         `${MARVEL_BASE}/comics?title=${title}&ts=${ts}&apikey=${MARVEL_KEY}&hash=${hash}`
       )
-      resResults = res.data.data.results
+      const resResults = res.data.data.results
+      setSearchResults(resResults)
+      setCurrentSearch(searchQuery)
     } catch (err) {
       console.log(err)
     }
-    setSearchResults(resResults)
-    setCurrentSearch(searchQuery)
   }
   // Handles search input field onChange
   const handleChange = (e) => {
@@ -138,21 +135,11 @@ const MarvelSearch = (props) => {
     }
   }
 
-  
-  useEffect(() => {
-    if (areStacksLoaded) {
-      setStackNames(getStackNames(stacks))
-    }
-    
-  }, [areStacksLoaded])
-
   useEffect(() => {
     getStacksByUsername()
-    // if (currentSearch) {
-      //   setSearchQuery(currentSearch)
-      //   searchComics(currentSearch)
-      //   console.log("?????")
-      // }
+    if (currentSearch) {
+        setSearchQuery(currentSearch)
+      }
     }, [])
   
   return (
