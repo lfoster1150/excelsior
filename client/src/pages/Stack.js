@@ -28,15 +28,15 @@ const Stack = (props) => {
     name: '',
     job_title: ''
   })
-  const { currentUsername, setCurrentUsername } = props
+  const { authenticated, user, handleLogOut} = props
   const { username, id } = props.match.params
 
   // Gets all comics in selected stack: on component mount, as well as when a comic is added or deleted
   const getStackComics = async () => {
-    if (id && currentUsername) {
+    if (id && user.username) {
       try {
         const res = await axios.get(
-          `${BASE_URL}/user/${currentUsername}/stack/${id}/comic`
+          `${BASE_URL}/user/${user.username}/stack/${id}/comic`
         )
         setStackComics(res.data.comics)
       } catch (err) {
@@ -66,7 +66,7 @@ const Stack = (props) => {
     e.preventDefault()
     try {
       await axios
-        .post(`${BASE_URL}/user/${currentUsername}/stack/${id}/comic`, {
+        .post(`${BASE_URL}/user/${user.username}/stack/${id}/comic`, {
           title: newComicQuery.title,
           description: newComicQuery.description,
           release_date: newComicQuery.release_date,
@@ -102,7 +102,7 @@ const Stack = (props) => {
       setStackComics(newArray)
       try {
         await axios.delete(
-          `${BASE_URL}/user/${currentUsername}/stack/${id}/comic/${objectToDelete._id}`
+          `${BASE_URL}/user/${user.username}/stack/${id}/comic/${objectToDelete._id}`
         )
       } catch (error) {
         console.log(error)
@@ -121,10 +121,10 @@ const Stack = (props) => {
   // Uses ID from click handler to travel to specific comics details page
   const getComicDetailsByStackId = async (id) => {
     try {
-      await axios.get(
-        `${BASE_URL}/user/${currentUsername}/stack/${id}/comic/${id}`
-      )
-      props.history.push(`/user/${currentUsername}/stack/${id}/comic/${id}`)
+      // await axios.get(
+      //   `${BASE_URL}/user/${user.username}/stack/${id}/comic/${id}`
+      // )
+        props.history.push(`/user/${user.username}/stack/${id}/comic/${id}`)
     } catch (err) {
       console.log(err)
     }
@@ -145,23 +145,22 @@ const Stack = (props) => {
   }
   // stops stacks from loading until states are loaded in
   useEffect(() => {
-    if (currentStackId && currentUsername) {
+    if (currentStackId) {
       getStackComics()
     }
-  }, [currentStackId, currentUsername])
+  }, [currentStackId])
   // Adds creator to container when state changes
   useEffect(() => {
     addCreatorMap()
   }, [creatorState])
   // On page mount
   useEffect(() => {
-    setCurrentUsername(props.match.params.username)
     setCurrentStackId(props.match.params.id)
   }, [])
 
   return (
     <div className="page">
-      <BootNav username={username} />
+      <BootNav username={username} authenticated={authenticated} user={user} handleLogOut={handleLogOut}/>
       <Navbar className="add-comic-nav" expand={false}>
         <Container fluid>
           <Navbar.Brand>Add a new comic...</Navbar.Brand>

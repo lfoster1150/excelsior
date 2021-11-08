@@ -61,7 +61,7 @@ const MarvelSearch = (props) => {
   const goToMarvelComicPage = (id) => {
     try {
       // const res = await axios.get(`${BASE_URL}/user/${currentUsername}/marvel/`)
-      props.history.push(`/user/${user.username}/marvel/${id}`)
+      props.history.push(`/marvel/${id}`)
     } catch (err) {
       console.log(err)
     }
@@ -84,11 +84,13 @@ const MarvelSearch = (props) => {
   // Adds comic if stack selected
   const addComicToStack = async (comic) => {
     if (currentStack.stack_id) {
+      const creatorMap = comic.creators.items.map(creator => `${creator.role}: ${creator.name}`)
       try {
         await axios
           .post(
             `${BASE_URL}/user/${user.username}/stack/${currentStack.stack_id}/comic`,
             {
+              creators: creatorMap,
               title: comic.title,
               description: comic.desription,
               cover_image: `${comic.thumbnail.path}.${comic.thumbnail.extension}`,

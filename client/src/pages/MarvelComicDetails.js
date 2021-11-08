@@ -9,7 +9,9 @@ const MarvelComicDetails = (props) => {
   const [areDetailsLoaded, setAreDetailsLoaded] = useState(false)
   const [comicDetails, setComicDetails] = useState({})
   const [creatorArray, setCreatorArray] = useState([])
-  const { username, api_id } = props.match.params
+  const { api_id } = props.match.params
+  const { user, authenticated } = props
+  
   const defaultMarvelLink = 'http://marvel.com'
 
   // Gets details on page mount
@@ -43,7 +45,7 @@ const MarvelComicDetails = (props) => {
 
   return (
     <div className="page">
-      <BootNav username={username} search="search" />
+      <BootNav authenticated={authenticated} user={user} search="search" />
       {areDetailsLoaded ? (
         <div className="comic-details-container">
           <h2>{comicDetails.title}</h2>

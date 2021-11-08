@@ -8,12 +8,13 @@ const ComicDetails = (props) => {
   const [detailsSet, setDetailsSet] = useState(false)
   const [comicDetails, setComicDetails] = useState({})
   const [creatorArray, setCreatorArray] = useState([])
-  const { username, id, comic_id } = props.match.params
+  const { user, authenticated } = props
+  const { id, comic_id } = props.match.params
   // Gets comic details on page mount
   const getComicDetailsById = async () => {
     try {
       const res = await axios.get(
-        `${BASE_URL}/user/${username}/stack/${id}/comic/${comic_id}`
+        `${BASE_URL}/user/${user.username}/stack/${id}/comic/${comic_id}`
       )
       setComicDetails(res.data.comics)
     } catch (err) {
@@ -33,13 +34,14 @@ const ComicDetails = (props) => {
       setCreatorArray(comicDetails.creators)
     }
   }, [detailsSet])
+
   useEffect(() => {
     getComicDetailsById()
   }, [])
 
   return (
     <div className="page">
-      <BootNav username={username} id={id} />
+      <BootNav authenticated={authenticated} user={user} id={id} />
       <div className="comic-details-container">
         <h2>{comicDetails.title}</h2>
         <img

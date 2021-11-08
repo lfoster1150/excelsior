@@ -59,36 +59,51 @@ function App() {
             />
           )}
         />
-        <Route
-          path="/user/:username/stack/:id/comic/:comic_id"
-          component={(props) => (
-            <ComicDetails
-              {...props}
-              currentUsername={currentUsername}
-              setCurrentUsername={setCurrentUsername}
-            />
-          )}
-        />
-        <Route
-          path="/user/:username/stack/:id"
-          component={(props) => (
-            <Stack
-              {...props}
-              currentUsername={currentUsername}
-              setCurrentUsername={setCurrentUsername}
-            />
-          )}
-        />
-        <Route
-          path="/user/:username/marvel/:api_id"
-          component={(props) => (
-            <MarvelComicDetails
-              {...props}
-              currentSearch={currentSearch}
-              setCurrentSearch={setCurrentSearch}
-            />
-          )}
-        />
+        {user && authenticated && (
+          <ProtectedRoute
+            authenticated={authenticated}
+            user={user}
+            path="/user/:username/stack/:id/comic/:comic_id"
+            component={(props) => (
+              <ComicDetails
+                {...props}
+                user={user} 
+                authenticated={authenticated}
+                handleLogOut={handleLogOut}
+              />
+            )}
+          />
+        )}
+        {user && authenticated && (
+          <ProtectedRoute
+            authenticated={authenticated}
+            user={user}
+            path="/user/:username/stack/:id"
+            component={(props) => (
+              <Stack 
+                {...props}
+                authenticated={authenticated}
+                handleLogOut={handleLogOut}
+                user={user} 
+              />
+            )}
+          />
+        )}
+        {user && authenticated && (
+          <ProtectedRoute
+            authenticated={authenticated}
+            user={user}
+            path="/marvel/:api_id"
+            component={(props) => (
+              <MarvelComicDetails
+                {...props}
+                authenticated={authenticated}
+                handleLogOut={handleLogOut}
+                user={user} 
+              />
+            )}
+          />
+        )}
         {user && authenticated && (
           <ProtectedRoute
             authenticated={authenticated}

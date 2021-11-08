@@ -11,7 +11,7 @@ const BootNav = (props) => {
           {user ? (
             <Nav.Link href={`/user/${user.username}`}>User</Nav.Link>
           ) : undefined}
-          {id ? (
+          {user && id ? (
             <Nav.Link href={`/user/${user.username}/stack/${id}`}>Stack</Nav.Link>
           ) : undefined}
           {user && authenticated ? (
