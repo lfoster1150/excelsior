@@ -25,6 +25,7 @@ const MarvelComicDetails = (props) => {
       setComicDetails(res.data.data.results[0])
       setCreatorArray(res.data.data.results[0].creators.items)
       setAreDetailsLoaded(true)
+      console.log(res.data.data.results[0])
     } catch (err) {
       console.log(err)
     }

@@ -83,6 +83,7 @@ const MarvelSearch = (props) => {
   }
   // Adds comic if stack selected
   const addComicToStack = async (comic) => {
+    console.log(comic)
     if (currentStack.stack_id) {
       const creatorMap = comic.creators.items.map(creator => `${creator.role}: ${creator.name}`)
       try {
@@ -92,7 +93,7 @@ const MarvelSearch = (props) => {
             {
               creators: creatorMap,
               title: comic.title,
-              description: comic.desription,
+              description: comic.description,
               cover_image: `${comic.thumbnail.path}.${comic.thumbnail.extension}`,
               api: 'Marvel',
               api_id: comic.id,
