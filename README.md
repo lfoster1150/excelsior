@@ -52,6 +52,7 @@ The Trello board that was used to plan and this project and track development ca
 ### **_Future Updates_**
 
 - [x] Integrate Marvel API - Search
+- [x] Add JWT auth features
 - [ ] Add UPDATE method
 - [ ] Integrate Marvel API - Characters Page
 - [ ] Integrate Marvel API - Creators Page
