@@ -2,7 +2,7 @@ import React from 'react'
 import { Navbar, Nav, Container } from 'react-bootstrap'
 
 const BootNav = (props) => {
-  const { user, id, authenticated, handleLogOut} = props
+  const { user, authenticated, handleLogOut} = props
   return (
     <Navbar variant="dark" className="nav-bar">
       <Container>
@@ -10,9 +10,6 @@ const BootNav = (props) => {
         <Nav className="me-auto">
           {user ? (
             <Nav.Link href={`/user/${user.username}`}>User</Nav.Link>
-          ) : undefined}
-          {user && id ? (
-            <Nav.Link href={`/user/${user.username}/stack/${id}`}>Stack</Nav.Link>
           ) : undefined}
           {user && authenticated ? (
             <Nav.Link href={`/marvel`}>Search</Nav.Link>

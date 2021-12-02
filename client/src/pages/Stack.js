@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import BootNav from '../components/BootNav'
 import ComicCardInStack from '../components/ComicCardInStack'
 import { BASE_URL } from '../globals'
 import CreatorCard from '../components/CreatorCard'
@@ -28,8 +27,8 @@ const Stack = (props) => {
     name: '',
     job_title: ''
   })
-  const { authenticated, user, handleLogOut} = props
-  const { username, id } = props.match.params
+  const { authenticated, user} = props
+  const { id } = props.match.params
 
   // Gets all comics in selected stack: on component mount, as well as when a comic is added or deleted
   const getStackComics = async () => {
@@ -160,7 +159,6 @@ const Stack = (props) => {
 
   return (
     <div className="page">
-      <BootNav username={username} authenticated={authenticated} user={user} handleLogOut={handleLogOut}/>
       <Navbar className="add-comic-nav" expand={false}>
         <Container fluid>
           <Navbar.Brand>Add a new comic...</Navbar.Brand>

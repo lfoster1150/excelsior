@@ -41,7 +41,6 @@ const ComicDetails = (props) => {
 
   return (
     <div className="page">
-      <BootNav authenticated={authenticated} user={user} id={id} />
       <div className="comic-details-container">
         <h2>{comicDetails.title}</h2>
         <img

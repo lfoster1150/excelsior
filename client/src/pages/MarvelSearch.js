@@ -18,8 +18,7 @@ const MarvelSearch = (props) => {
     currentSearch, 
     setCurrentSearch, 
     user, 
-    authenticated, 
-    handleLogOut, 
+    authenticated,
     searchResults, 
     setSearchResults 
   } = props
@@ -147,7 +146,6 @@ const MarvelSearch = (props) => {
   
   return (
     <div className="page">
-      <BootNav authenticated={authenticated} user={user} handleLogOut={handleLogOut} />
       <Form className="bootstrap-form-contain" onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicURL">
           <Form.Label>Search:</Form.Label>
