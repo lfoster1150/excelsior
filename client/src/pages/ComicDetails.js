@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import BootNav from '../components/BootNav'
 import { BASE_URL } from '../globals'
 import defaultThumb from '../components/images/comics.jpg'
 

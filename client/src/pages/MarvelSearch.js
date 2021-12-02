@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { BASE_URL, MARVEL_KEY, PRIVATE_KEY, MARVEL_BASE } from '../globals'
 import axios from 'axios'
-import BootNav from '../components/BootNav'
 import MarvelComicCard from '../components/MarvelComicCard'
 import Footer from '../components/Footer'
 import { Button, Form, Dropdown } from 'react-bootstrap'

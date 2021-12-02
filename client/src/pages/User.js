@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { BASE_URL } from '../globals'
 import axios from 'axios'
-import BootNav from '../components/BootNav'
 import StackCard from '../components/StackCard'
 import { Button, Form } from 'react-bootstrap'
 
@@ -10,7 +9,7 @@ const User = (props) => {
   const [stacks, setStacks] = useState([])
   const [stackQuery, setStackQuery] = useState('')
   const [thumbnailQuery, setThumbnailQuery] = useState('')
-  const { user, authenticated, handleLogOut } = props
+  const { user, authenticated} = props
 
   // On page mount: gets data for current user based on username
   const getDataByUsername = async () => {
