@@ -46,9 +46,6 @@ const Home = (props) => {
 
   return (
     <div className="page ">
-      <header className="header-home">
-        <h1>Excelsior!</h1>
-      </header>
       <div className="home-page">
         <div>
           <Form className="bootstrap-form-contain" onSubmit={handleSubmit}>

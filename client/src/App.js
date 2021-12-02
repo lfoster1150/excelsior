@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './styles/App.css'
+import BootNav from './components/BootNav'
 import Home from './pages/Home'
 import User from './pages/User'
 import Stack from './pages/Stack'
@@ -42,6 +43,7 @@ function App() {
 
   return (
     <div className="App">
+      <BootNav authenticated={authenticated} user={user} handleLogOut={handleLogOut} />
       <Switch>
         <Route
           exact
