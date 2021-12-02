@@ -101,7 +101,6 @@ const User = (props) => {
 
   return (
     <div className="page">
-      <BootNav authenticated={authenticated} user={user} handleLogOut={handleLogOut} />
       { props.match.params.username === user.username ? (
         <Form className="bootstrap-form-contain" onSubmit={postNewStack}>
           <Form.Group className="mb-3" controlId="formBasicName">
