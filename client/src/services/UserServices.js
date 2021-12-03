@@ -17,3 +17,12 @@ export const GetStacks = async (username) => {
         console.log(err)
     }
 }
+
+export const PostStack = async (username, data) => {
+    try {
+        const res = await Client.post(`/user/${username}/stack`, data)
+        return res.data.newStack
+    } catch (err) {
+        console.log(err)
+    }
+}

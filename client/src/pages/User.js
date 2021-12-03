@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { BASE_URL } from '../globals'
 import axios from 'axios'
-import { GetDataByUsername, GetStacks } from '../services/UserServices'
+import { GetDataByUsername, GetStacks, PostStack } from '../services/UserServices'
 import StackCard from '../components/StackCard'
 import { Button, Form } from 'react-bootstrap'
 
@@ -27,23 +27,15 @@ const User = (props) => {
   // Submit button onSubmit: adds new stack
   const postNewStack = async (e) => {
     e.preventDefault()
-    try {
-      await axios
-        .post(`${BASE_URL}/user/${user.username}/stack`, {
-          name: stackQuery,
-          thumbnail: thumbnailQuery,
-          user: userData._id
-        })
-        .then(function (response) {
-          console.log(response)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-    } catch (err) {
-      console.log(err)
+    const data = {
+      name: stackQuery,
+      thumbnail: thumbnailQuery,
+      user: userData._id
     }
-    getExistingStacks()
+    const stack = await PostStack(user.username, data)
+    const currentStacks = [...stacks]
+    currentStacks.push(stack)
+    setStacks(currentStacks)
   }
   // The two below handle form inputs onChange
   const handleChange = (event) => {
