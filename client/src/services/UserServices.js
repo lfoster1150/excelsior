@@ -8,3 +8,12 @@ export const GetDataByUsername = async (username) => {
         console.log(err)
     }
 }
+
+export const GetStacks = async (username) => {
+    try {
+        const res = await Client.get(`/user/${username}/stack`)
+        return res.data.stacks
+    } catch (err) {
+        console.log(err)
+    }
+}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { BASE_URL } from '../globals'
 import axios from 'axios'
-import { GetDataByUsername } from '../services/UserServices'
+import { GetDataByUsername, GetStacks } from '../services/UserServices'
 import StackCard from '../components/StackCard'
 import { Button, Form } from 'react-bootstrap'
 
@@ -19,13 +19,9 @@ const User = (props) => {
   }
 
   // On page mount and after new stack is created: gets data for current user based on username
-  const getExistingStacks = async () => {
-    try {
-      const res = await axios.get(`${BASE_URL}/user/${user.username}/stack`)
-      setStacks(res.data.stacks)
-    } catch (err) {
-      console.log(err)
-    }
+  const getExistingStacks = async (username) => {
+      const stacks = await GetStacks(username)
+      setStacks(stacks)
   }
 
   // Submit button onSubmit: adds new stack
@@ -91,7 +87,7 @@ const User = (props) => {
   // Sets up data on User page mount
   useEffect(() => {
     getDataByUsername(user.username)
-    getExistingStacks()
+    getExistingStacks(user.username)
   }, [])
 
   return (
