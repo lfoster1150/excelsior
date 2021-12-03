@@ -33,10 +33,9 @@ const User = (props) => {
       user: userData._id
     }
     const stack = await PostStack(user.username, data)
-    const currentStacks = [...stacks]
-    currentStacks.push(stack)
-    setStacks(currentStacks)
+    setStacks([...stacks, stack])
   }
+  
   // The two below handle form inputs onChange
   const handleChange = (event) => {
     setStackQuery(event.target.value)
