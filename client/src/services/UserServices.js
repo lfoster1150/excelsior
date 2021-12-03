@@ -26,3 +26,12 @@ export const PostStack = async (username, data) => {
         console.log(err)
     }
 }
+
+export const DeleteStack = async (username, id) => {
+    try {
+        await Client.delete(`/user/${username}/stack/${id}`)
+    } catch (err) {
+        console.log(err)
+    }
+}
+

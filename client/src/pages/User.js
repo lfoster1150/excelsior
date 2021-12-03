@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { BASE_URL } from '../globals'
 import axios from 'axios'
-import { GetDataByUsername, GetStacks, PostStack } from '../services/UserServices'
+import { GetDataByUsername, GetStacks, PostStack, DeleteStack } from '../services/UserServices'
 import StackCard from '../components/StackCard'
 import { Button, Form } from 'react-bootstrap'
 
@@ -35,7 +35,7 @@ const User = (props) => {
     const stack = await PostStack(user.username, data)
     setStacks([...stacks, stack])
   }
-  
+
   // The two below handle form inputs onChange
   const handleChange = (event) => {
     setStackQuery(event.target.value)
@@ -50,13 +50,7 @@ const User = (props) => {
       const objectToDelete = newArray[index]
       newArray.splice(index, 1)
       setStacks(newArray)
-      try {
-        await axios.delete(
-          `${BASE_URL}/user/${user.username}/stack/${objectToDelete._id}`
-        )
-      } catch (error) {
-        console.log(error)
-      }
+      await DeleteStack(user.username, objectToDelete._id)
     }
   }
   // Gets and travels to specific stack page based on Stack _id
